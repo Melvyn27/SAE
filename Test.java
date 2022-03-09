@@ -1,3 +1,5 @@
+package fdp;
+
 public class Test {
     private int test;
     private int bg;
