@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package SAE;
+=======
+package fdp;
+>>>>>>> main
 
 public class Test {
     private int test;
