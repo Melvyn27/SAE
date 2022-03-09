@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Carte {
     static public ArrayList<Site> sites = new ArrayList<>();
-    static public ArrayList<Route> routes = new ArrayList<>();
 
     public Carte(){
     }
@@ -14,17 +13,7 @@ public class Carte {
         sites.add(s);
     }
 
-    static boolean ajouterRoute(Route r){
-        boolean test=true;
-        for(Route e : routes){
-            if((e.destination.equals(r.source) || e.destination.equals(r.destination))
-                    && e.type==r.type
-                    && e.longueur==r.longueur
-                    && (e.source.equals(r.source) || e.source.equals(r.destination)))test=false;
-        }
-        if(test)routes.add(r);
-        return test;
-    }
+
 
     public int getIndexOf(String search){
         int test = -1;
@@ -42,7 +31,5 @@ public class Carte {
         return sites;
     }
 
-    public static ArrayList<Route> getRoutes() {
-        return routes;
-    }
+
 }
