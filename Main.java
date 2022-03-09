@@ -1,8 +1,8 @@
 package SAE;
 
-import map.Carte;
-import map.Route;
-import map.Site;
+import SAE.map.Carte;
+import SAE.map.Route;
+import SAE.map.Site;
 
 public class Main {
     static Carte carte=new Carte();
