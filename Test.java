@@ -1,3 +1,5 @@
+package SAE;
+
 public class Test {
     private int test;
     private int bg;
