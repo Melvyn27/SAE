@@ -31,5 +31,19 @@ public class Carte {
         return sites;
     }
 
+    public String voisinDe(int  index,int distance){
+        String rtn = "";
+        if(distance!=0){
+            for(String site:sites.get(index).getVoisin()){
+                voisinDe(getIndexOf(site),distance-1);
+            }
+
+        }else{
+            rtn+= " "+sites.get(index).getNom();
+        }
+        return rtn;
+    }
+
+
 
 }

@@ -22,7 +22,13 @@ public class Site {
 
 
 
-
+    public ArrayList<String> getVoisin(){
+        ArrayList<String> v=new ArrayList<>();
+        for (Route route: routes) {
+            v.add(route.getDestination());
+        }
+        return v;
+    }
 
     public String getNom() {
         return nom;
