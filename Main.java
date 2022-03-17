@@ -53,6 +53,7 @@ public class Main {
 
         return 1;
     }
+    /*
     static void listerLesRoute(){
         System.out.println("liste des autoroutes:");
         for (Route s: Carte.routes) {
@@ -66,7 +67,7 @@ public class Main {
         for (Route s: Carte.routes) {
             if(s.getType()=='D') System.out.println("\t" + s.getSource() + "<-->" + s.getDestination());
         }
-    }
+    }*/
 
     static void listerLesSite(){
         System.out.println("liste des villes:");

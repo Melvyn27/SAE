@@ -16,7 +16,6 @@ public class Site {
         if(!nom.equals(destination)){
             Route r = new Route(type,longueur,destination,nom);
             routes.add(r);
-            Carte.ajouterRoute(r);
         }
     }
 
