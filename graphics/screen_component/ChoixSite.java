@@ -1,5 +1,7 @@
 package SAE.graphics.screen_component;
 
+import SAE.graphics.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,13 +35,16 @@ public class ChoixSite extends JPanel implements ActionListener {
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         setBounds(0,0,width,1000);
         addChoix("first");
+        addChoix("second");
+
     }
 
     public void addChoix(String name){
-        JButton b=new JButton(name);
-        //buttons.add(b);
+        JRadioButton b=new JRadioButton(name);
+        buttons.add(b);
         add(b);
         b.addActionListener(this);
+        b.setActionCommand(""+getComponentCount());
         setBounds(0,0,width,getComponentCount()*25);
 
     }
@@ -54,6 +59,8 @@ public class ChoixSite extends JPanel implements ActionListener {
         return choix;
     }
 
+
+
     public void setWidth(int width){
         this.width=width;
         view.setBounds(x,y,width,height);
@@ -67,9 +74,15 @@ public class ChoixSite extends JPanel implements ActionListener {
         return view;
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.addChoix("test");
+        String cmd=e.getActionCommand();
+        choix=Integer.parseInt(cmd)-1;
+
+
+        System.out.println(choix);
     }
 
 
