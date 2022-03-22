@@ -82,7 +82,7 @@ public class Questionnement extends JPanel implements ActionListener {
 
         System.out.println(choix);
 
-        parent.action();
+        parent.action(cmd);
     }
 
 
