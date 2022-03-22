@@ -29,6 +29,7 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
         setVisible(true);
         addWindowListener(this);
         addComponentListener(this);
+
         //todo ajout des composant
         add(site1.getView());
         add(site2.getView());
@@ -54,12 +55,12 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
     void placeComponent(){
         int a=(int) ((getHeight()-20) * 0.70);
         int b=(int) ((getHeight()-20) * 0.30);
-        int c=(int) (getWidth() * 0.70);
+        int c=(int) (getWidth() * 0.33);
 
         site1.updateLocation(0,0,100,a);
         site2.updateLocation(100,0,100,a);
-        quest.updateLocation(0,a,200,b);
-        log.updateLocation(200,a,200,b);
+        quest.updateLocation(0,a,c,b);
+        log.updateLocation(c,a,getWidth()-c+5,b);
 
 
     }
@@ -72,12 +73,17 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
     }
 
 
-    public void action(){
-        log.addLine(""+site1.getChoix());
+    public void action(String act){
+        log.addLine(act+": "+site1.getChoix()+"->"+site2.getChoix());
 
 
 
     }
+
+
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
