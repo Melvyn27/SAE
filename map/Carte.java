@@ -14,7 +14,10 @@ public class Carte {
     }
 
 
-
+    /**
+     * @param search
+     * @return retourne l'index du site de nom 'search'(si non trouvé retourne _1_)
+     */
     public int getIndexOf(String search){
         int test = -1;
         int i = 0;
@@ -31,15 +34,22 @@ public class Carte {
         return sites;
     }
 
-    public String voisinDe(int  index,int distance){
+    /**
+     * @param index
+     * @param d
+     * @return retourne une chaine de caractere ce composant du nom des voisins à d-distances en noeud separé par un '.'
+     */
+    public String voisinDe(int  index,int d){
         String rtn = "";
-        if(distance!=0){
-            for(String site:sites.get(index).getVoisin()){
-                voisinDe(getIndexOf(site),distance-1);
-            }
+        if(index!=-1){
+            if(d!=0){
+                for(String site:sites.get(index).getVoisin()){
+                    voisinDe(getIndexOf(site),d-1);
+                }
 
-        }else{
-            rtn+= " "+sites.get(index).getNom();
+            }else{
+                rtn+= sites.get(index).getNom()+".";
+            }
         }
         return rtn;
     }
