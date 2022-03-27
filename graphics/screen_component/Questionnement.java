@@ -5,71 +5,48 @@ import SAE.graphics.Screen;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ *  /!\ le premier composant n'a pas 0 comme action
+ */
 public class Questionnement extends JPanel implements ActionListener {
-    int x=0;
-    int y=0;
-    int width =10;
-    int height =10;
+
 
 
     int choix;
     ButtonGroup buttons=new ButtonGroup();
-    JScrollPane view=new JScrollPane(this);
+    JScrollPane view;
     Screen parent;
 
     public Questionnement(){
         init();
     }
 
-    public Questionnement(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        init();
-    }
-
     void init(){
-        view.setBounds(x,y,width,height);
+        view=new JScrollPane(this);
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        setBounds(0,0,width,1000);
-        addChoix("first");
-        addChoix("second");
+
     }
 
     public void addChoix(String name){
+        /** /!\ le premier composant n'a pas 0 comme action */
         JButton b=new JButton(name);
         buttons.add(b);
         add(b);
         b.addActionListener(this);
         b.setActionCommand(""+getComponentCount());
-        setBounds(0,0,width,getComponentCount()*25);
+        setBounds(0,0,getWidth(),getComponentCount()*25);
 
     }
     public void link(Screen c){
     parent=c;
     }
 
-    public void updateLocation(int x,int y,int width,int height){
-        this.x=x;
-        this.y=y;
-        this.width=width;
-        this.height=height;
-        view.setBounds(x,y,width,height);
-    }
     public int getChoix(){
+        /** /!\ le premier composant n'a pas 0 comme action */
         return choix;
     }
 
-    public void setWidth(int width){
-        this.width=width;
-        view.setBounds(x,y,width,height);
-    }
-    public void setHeight(int height){
-        this.height=height;
-        view.setBounds(x,y,width,height);
-    }
+
 
     public JScrollPane getView() {
         return view;
@@ -82,7 +59,7 @@ public class Questionnement extends JPanel implements ActionListener {
 
         System.out.println(choix);
 
-        parent.action(cmd);
+        parent.action(choix);
     }
 
 
