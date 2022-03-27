@@ -13,71 +13,65 @@ import java.util.ArrayList;
 
 public class Screen extends JFrame implements ActionListener, ComponentListener, WindowListener {
     ArrayList<Site> sites = new ArrayList<>();
+    //----creation-des-composants-----
+    JPanel topPanel = new JPanel();
+    JPanel lowPanel = new JPanel();
+    JPanel globalPane;
 
-    Log log = new Log();
-    ChoixSite site1=new ChoixSite();
-    ChoixSite site2=new ChoixSite();
     Questionnement quest = new Questionnement();
+    Log log = new Log();
+    //------------
+
 
 
     public Screen(){
 
-        //TODO set la fenetre
-        super("graph-Map");
-        setSize(800,400);
-        setLayout(null);
-        setVisible(true);
-        addWindowListener(this);
-        addComponentListener(this);
-
-        //todo ajout des composant
-        add(site1.getView());
-        add(site2.getView());
-        add(log.getView());
-        add(quest.getView());
 
 
-        //todo set les parametre composant
-        quest.link(this);
-        placeComponent();
-
-
-
+        init();
     }
     void init(){
+        globalPane = (JPanel) this.getContentPane();
+        setVisible(true);
+        setSize(800,400);
+        setDefaultCloseOperation(3);
+        setMinimumSize(new Dimension(600,500));
+        topPanel.setBackground(Color.green);
+        lowPanel.setBackground(Color.red);
+        lowPanel.setPreferredSize(new Dimension(0,150));
+        //-----ajout-des-panneaux-principaux-----------------
+        globalPane.add(topPanel);
+        globalPane.add(lowPanel,BorderLayout.SOUTH);
+        //-----ajout-des-panneaux-secondaire-----------------
+        {
+            lowPanel.setLayout(new BorderLayout());
+            quest.link(this);
+            quest.getView().setPreferredSize(new Dimension(300, 0));
+            quest.addChoix("ajout");
+            quest.addChoix("clear");
+
+
+            lowPanel.add(quest.getView(), BorderLayout.WEST);
+            //
+            lowPanel.add(log.getView());
+
+
+        }
+
+
+
 
 
     }
 
-    /**
-     * move component when window resize
-     */
-    void placeComponent(){
-        int a=(int) ((getHeight()-20) * 0.70);
-        int b=(int) ((getHeight()-20) * 0.30);
-        int c=(int) (getWidth() * 0.33);
+    public void action(int act){
+        System.out.println("action performed : " + act);
 
-        site1.updateLocation(0,0,100,a);
-        site2.updateLocation(100,0,100,a);
-        quest.updateLocation(0,a,c,b);
-        log.updateLocation(c,a,getWidth()-c+5,b);
+        if(act == 0) log.addLine("lol");
+        else if(act == 1) log.clear();
 
 
-    }
-
-
-
-    public void mainScreen(){
-
-
-    }
-
-
-    public void action(String act){
-        log.addLine(act+": "+site1.getChoix()+"->"+site2.getChoix());
-
-
-
+        System.out.println("nb component : " + log.getComponentCount());
     }
 
 
@@ -128,7 +122,7 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
 
     @Override
     public void componentResized(ComponentEvent e) {
-        placeComponent();
+
     }
 
     @Override
@@ -146,17 +140,3 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
 
     }
 }
-
-
-/**
- * doc:
- * fait
- * - creation de deux panneaux d'affichage pour le choix des sites
- * - creation de un panneau de Log pour afficher les resultats
- * - class de questionement du graph
- * a faire:
- * - finaliser les panneaux d'affichage
- * - finaliser de questionement du graph pour la mise a jour d'action
- * - class de dessin pour afficher le graph dynamiquement
- * - creer un affichage dynamique
- */
