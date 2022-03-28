@@ -3,6 +3,7 @@ package SAE.graphics;
 import SAE.graphics.screen_component.ChoixSite;
 import SAE.graphics.screen_component.Log;
 import SAE.graphics.screen_component.Questionnement;
+import SAE.map.Carte;
 import SAE.map.Site;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Screen extends JFrame implements ActionListener, ComponentListener, WindowListener {
-    ArrayList<Site> sites = new ArrayList<>();
+    Carte carte = new Carte();
     //----creation-des-composants-----
     JPanel topPanel = new JPanel();
     JPanel lowPanel = new JPanel();
@@ -20,6 +21,8 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
 
     Questionnement quest = new Questionnement();
     Log log = new Log();
+    ChoixSite choixSite1 = new ChoixSite();
+    ChoixSite choixSite2 = new ChoixSite();
     //------------
 
 
@@ -44,17 +47,21 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
         globalPane.add(lowPanel,BorderLayout.SOUTH);
         //-----ajout-des-panneaux-secondaire-----------------
         {
+            //
             lowPanel.setLayout(new BorderLayout());
             quest.link(this);
             quest.getView().setPreferredSize(new Dimension(300, 0));
             quest.addChoix("ajout");
             quest.addChoix("clear");
-
-
             lowPanel.add(quest.getView(), BorderLayout.WEST);
             //
             lowPanel.add(log.getView());
-
+            //
+            topPanel.setLayout(new GridLayout(1,4));
+            choixSite1.getView().setPreferredSize(new Dimension(150,0));
+            topPanel.add(choixSite1.getView());
+            choixSite2.getView().setPreferredSize(new Dimension(150,0));
+            topPanel.add(choixSite2.getView());
 
         }
 
