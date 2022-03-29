@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class GraphPanel extends JPanel {
     Carte carte;
-
+    JScrollPane view=new JScrollPane();
 
 
 
@@ -16,8 +16,7 @@ public class GraphPanel extends JPanel {
     }
 
 
-
-
-
-
+    public JScrollPane getView() {
+        return view;
+    }
 }
