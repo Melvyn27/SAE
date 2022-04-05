@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Carte {
     static public ArrayList<Site> sites = new ArrayList<>();
 
+
+
     public Carte(){
     }
 
@@ -14,9 +16,27 @@ public class Carte {
     }
 
 
+
+
+
+    public void selectSite(String name){
+        selectSite(sites.get(getIndexOf(name)));
+    }
+    public void selectSite(Site s){
+        s.setSelectionné(true);
+    }
+
+    public void resetGraph(){
+        for(Site s:sites){
+         s.setSelectionné(false);
+         for(Route r:s.getRoutes()){
+             r.setSelectionné(false);
+         }
+        }
+    }
     /**
      * @param search
-     * @return retourne l'index du site de nom 'search'(si non trouvé retourne _1_)
+     * @return retourne l'index du site de nom 'search'(si non trouvé retourne 1)
      */
     public int getIndexOf(String search){
         int test = -1;
