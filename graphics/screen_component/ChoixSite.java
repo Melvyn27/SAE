@@ -45,8 +45,7 @@ public class ChoixSite extends JPanel implements ActionListener {
         add(b);
         b.addActionListener(this);
         b.setActionCommand(""+getComponentCount());
-        setBounds(0,0,width,getComponentCount()*25);
-
+        setBounds(0,0,view.getWidth(),getComponentCount()*25);
     }
     public void updateLocation(int x,int y,int width,int height){
         this.x=x;
