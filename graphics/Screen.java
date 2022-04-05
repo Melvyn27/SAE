@@ -84,8 +84,8 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
         {
             globalPane.add(globalSplit);
             topPanel.add(topSplit);
-            choixPanel.add(choixSite1);
-            choixPanel.add(choixSite2);
+            choixPanel.add(choixSite1.getView());
+            choixPanel.add(choixSite2.getView());
             lowPanel.add(lowSplit);
         }
 
