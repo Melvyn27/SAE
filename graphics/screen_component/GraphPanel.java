@@ -11,9 +11,8 @@ public class GraphPanel extends JPanel {
 
 
 
-    public void setCarte(Carte carte){
-        this.carte=carte;
-    }
+
+
 
 
     public JScrollPane getView() {
