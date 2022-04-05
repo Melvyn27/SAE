@@ -1,11 +1,15 @@
 package SAE.map;
 
+import SAE.graphics.graphComponent.Point;
+
 import java.util.ArrayList;
 
 public class Site {
     String nom;
     char type;
     ArrayList<Route> routes = new ArrayList<>();
+    boolean selectionné=false;
+    public Point coordonnée=new Point(0,0);
 
     public Site(String nom, char type) {
         this.nom = nom;
@@ -30,6 +34,21 @@ public class Site {
         return v;
     }
 
+
+    public boolean isSelectionné() {
+        return selectionné;
+    }
+
+    public void setSelectionné(boolean selectionné) {
+        this.selectionné = selectionné;
+    }
+
+    public void setCoordonnée(Point coordonnée) {
+        this.coordonnée = coordonnée;
+    }
+    public Point getCoordonnée() {
+        return coordonnée;
+    }
     public String getNom() {
         return nom;
     }
