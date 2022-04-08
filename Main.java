@@ -1,24 +1,18 @@
 package SAE;
 
+import SAE.assets.Notification;
+import SAE.graphics.FileChooser;
+import SAE.graphics.LoadCarte;
 import SAE.map.Carte;
 import SAE.map.Route;
 import SAE.map.Site;
 
-public class Main {
-    static Carte carte=new Carte();
-
+public class Main implements Notification {
+    FileChooser fileChooser=new FileChooser();
+    LoadCarte loadCarte = new LoadCarte();
 
     public static void main(String[] args) {
-        carte.ajouterSite('V',"test");
-        carte.ajouterSite('R',"test2");
-        carte.ajouterSite('L',"test3");
-        listerLesSite();
-
-
-    }
-
-    static void menu(){
-
+        Main prgm = new Main();
 
 
 
@@ -28,6 +22,32 @@ public class Main {
 
 
     }
+
+
+
+
+    @Override
+    public void newNotification(int id,String notif) {
+        switch (id){
+            case 0:
+
+                break;
+            case 1:
+
+                break;
+            default:
+
+        }
+
+
+
+    }
+
+
+
+
+
+    /*
     int init(){
         int test = 0;
 
@@ -53,35 +73,8 @@ public class Main {
 
         return 1;
     }
-    /*
-    static void listerLesRoute(){
-        System.out.println("liste des autoroutes:");
-        for (Route s: Carte.routes) {
-            if(s.getType()=='A') System.out.println("\t" + s.getSource() + "<-->" + s.getDestination());
-        }
-        System.out.println("liste des routes national:");
-        for (Route s: Carte.routes) {
-            if(s.getType()=='N') System.out.println("\t" + s.getSource() + "<-->" + s.getDestination());
-        }
-        System.out.println("liste des routes departemental");
-        for (Route s: Carte.routes) {
-            if(s.getType()=='D') System.out.println("\t" + s.getSource() + "<-->" + s.getDestination());
-        }
-    }*/
 
-    static void listerLesSite(){
-        System.out.println("liste des villes:");
-        for (Site s: Carte.sites) {
-            if(s.getType()=='V') System.out.println("\t" + s.getNom());
-        }
-        System.out.println("liste des centres de loisir:");
-        for (Site s: Carte.sites) {
-            if(s.getType()=='L') System.out.println("\t" + s.getNom());
-        }
-        System.out.println("liste des restaurant:");
-        for (Site s: Carte.sites) {
-            if(s.getType()=='R') System.out.println("\t" + s.getNom());
-        }
-    }
 
+
+*/
 }
