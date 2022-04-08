@@ -73,6 +73,20 @@ public class Carte {
         }
         return rtn;
     }
+    static void listerLesSite(){
+        System.out.println("liste des villes:");
+        for (Site s: sites) {
+            if(s.getType()=='V') System.out.println("\t" + s.getNom());
+        }
+        System.out.println("liste des centres de loisir:");
+        for (Site s: sites) {
+            if(s.getType()=='L') System.out.println("\t" + s.getNom());
+        }
+        System.out.println("liste des restaurant:");
+        for (Site s: sites) {
+            if(s.getType()=='R') System.out.println("\t" + s.getNom());
+        }
+    }
 
 
 
