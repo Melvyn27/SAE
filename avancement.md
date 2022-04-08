@@ -1,8 +1,10 @@
 # minimum requie
 
-    [ ] algo de voisinage 1  
+    [x] algo de voisinage 1
 
-    [ ] algo de voisinage 2  
+    [x] algo de voisinage 2 
+
+    [x] algo de voisinage x
 
     [ ] chargement de la base de donnée  
 
@@ -14,10 +16,10 @@
 
 ## Carte
 
-    [ ] getIndexOf
-    [ ] voisinDe
-    [ ] 
-    [ ]
+    [x] getIndexOf
+    [x] voisinDe
+    [x] listerLesSite
+    [ ] listerLesRoute
 ## Graph
 
     [x] 
