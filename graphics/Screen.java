@@ -36,10 +36,9 @@ public class Screen extends JFrame implements ActionListener, ComponentListener,
 
     public Screen(){
 
-
-
         init();
     }
+
 
     /** —   └   ┐   ┬   ├   │
      * globalPane——globalSpit—┬—topPanel——topSplit—┬—choixSite—┬—choixSite1
