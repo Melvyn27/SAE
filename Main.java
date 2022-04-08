@@ -12,7 +12,11 @@ public class Main {
         carte.ajouterSite('V',"test");
         carte.ajouterSite('R',"test2");
         carte.ajouterSite('L',"test3");
+        carte.ajouterRoute('A', 32, "test", "test2");
         listerLesSite();
+        System.out.println(carte.getIndexOf("test"));
+        System.out.println(carte.getIndexOf("test2"));
+        System.out.println(carte.voisinDe(carte.getIndexOf("test"), 1));
 
 
     }
