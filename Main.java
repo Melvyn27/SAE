@@ -9,7 +9,6 @@ import SAE.map.Site;
 
 public class Main implements Notification {
     FileChooser fileChooser=new FileChooser();
-    LoadCarte loadCarte = new LoadCarte();
 
     public static void main(String[] args) {
         Main prgm = new Main();

@@ -4,35 +4,38 @@ import SAE.assets.Notification;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class FileChooser implements ActionListener {
+public class FileChooser extends JFrame implements ActionListener{
 JFileChooser fileGetter = new JFileChooser();
-JFrame chooseFrame = new JFrame();
-    Notification notifiable;
 
 public FileChooser(){
-    chooseFrame.setVisible(true);
-    chooseFrame.setSize(200,200);
-    chooseFrame.add(fileGetter);
+
+
+    setDefaultCloseOperation(3);
+    add(fileGetter);
+
+    fileGetter.resetChoosableFileFilters();
+    fileGetter.addChoosableFileFilter(new FileNameExtensionFilter("fichier de sauvergarde(*.csv,*.grm)","csv","grm"));
+
     fileGetter.addActionListener(this);
-    chooseFrame.setDefaultCloseOperation(3);
-    fileGetter.setCurrentDirectory(new File("/"));
+
+    setVisible(true);
+    setSize(400,400);
+
 
 }
-    public void setNotifiable(Notification notifiable){
-        this.notifiable=notifiable;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e);
+        System.out.println(e.getActionCommand());
+        if(e.getActionCommand()=="CancelSelection")System.exit(0);
 
-        if(notifiable!=null)notifiable.newNotification(0,fileGetter.getSelectedFile().getAbsolutePath().toString());
 
-        chooseFrame.dispose();
+
     }
 }
