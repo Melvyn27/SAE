@@ -28,6 +28,7 @@ public class Questionnement extends JPanel implements ActionListener {
     }
 
     public void addChoix(String name){
+        //fixme affichage a refaire
         /** /!\ le premier composant n'a pas 0 comme action */
         JButton b=new JButton(name);
         buttons.add(b);

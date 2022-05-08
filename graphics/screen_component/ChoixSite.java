@@ -40,6 +40,7 @@ public class ChoixSite extends JPanel implements ActionListener {
     }
 
     public void addChoix(String name){
+        //fixme affichage a refaire
         JRadioButton b=new JRadioButton(name);
         buttons.add(b);
         add(b);

@@ -21,15 +21,18 @@ public class Log extends JPanel {
 
     }
     public void addLine(String str){
+        //fixme affichage a refaire
+        //this.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         add(new JLabel(str));
-        setSize(this.getWidth(),getComponentCount()*25);
+        //setSize(this.getWidth(),getComponentCount()*25);
         System.out.println("new log added : " + str);
         JScrollBar bar= view.getVerticalScrollBar();
-        bar.setValue(bar.getMaximum()+1000);
+        bar.setValue(bar.getMaximum());
+
     }
     public void clear(){
         removeAll();
-        setSize(this.getWidth(),getComponentCount()*25);
+        //setSize(this.getWidth(),getComponentCount()*25);
         System.out.println("component free");
     }
 
