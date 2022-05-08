@@ -1,5 +1,6 @@
 package SAE.graphics;
 
+import SAE.actionEvent.TestAction;
 import SAE.graphics.screen_component.ChoixSite;
 import SAE.graphics.screen_component.GraphPanel;
 import SAE.graphics.screen_component.Log;
@@ -66,7 +67,8 @@ public class Screen extends JFrame implements ActionListener {
             lowPanel.setLayout(new BorderLayout());
             quest.link(this);
             quest.getView().setPreferredSize(new Dimension(300, 0));
-            quest.addChoix("ajout question");
+
+            quest.addChoix("ajout question",new TestAction(this));
             quest.addChoix("clear");
             quest.addChoix("ajout choix site 1");
             //
@@ -93,20 +95,32 @@ public class Screen extends JFrame implements ActionListener {
 
 
     }
-
+/*
     public void action(int act){
         System.out.println("action performed : " + act);
 
         if(act == 0) log.addLine("lol");
         else if(act == 1) log.clear();
         else if(act == 2) choixSite1.addChoix("new site");
-        System.out.println("nb component : " + log.getComponentCount());
+        //System.out.println("nb component : " + log.getComponentCount());
+
+    }*/
+
+    public Log getLog() {
+        return log;
     }
 
+    public ChoixSite getChoixSite1() {
+        return choixSite1;
+    }
 
+    public ChoixSite getChoixSite2() {
+        return choixSite2;
+    }
 
-
-
+    public GraphPanel getGraph() {
+        return graph;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
