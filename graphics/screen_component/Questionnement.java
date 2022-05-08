@@ -15,7 +15,7 @@ public class Questionnement extends JPanel implements ActionListener {
     int choix;
     ButtonGroup buttons=new ButtonGroup();
     JScrollPane view;
-    Screen parent;
+    Screen target;
 
     public Questionnement(){
         init();
@@ -28,18 +28,22 @@ public class Questionnement extends JPanel implements ActionListener {
     }
 
     public void addChoix(String name){
+        addChoix(name,null);
+    }
+    public void addChoix(String name,ActionListener action){
         //fixme affichage a refaire
         /** /!\ le premier composant n'a pas 0 comme action */
         JButton b=new JButton(name);
         buttons.add(b);
         add(b);
-        b.addActionListener(this);
+        b.addActionListener(action);
         b.setActionCommand(""+getComponentCount());
         setBounds(0,0,getWidth(),getComponentCount()*25);
-
     }
+
+
     public void link(Screen c){
-    parent=c;
+    target =c;
     }
 
     public int getChoix(){
@@ -60,7 +64,7 @@ public class Questionnement extends JPanel implements ActionListener {
 
         System.out.println(choix);
 
-        parent.action(choix);
+        //parent.action(choix);
     }
 
 
