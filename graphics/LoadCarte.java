@@ -3,7 +3,9 @@ package SAE.graphics;
 import SAE.assets.Notification;
 import SAE.map.Carte;
 
-public class LoadCarte {
+import javax.swing.*;
+
+public class LoadCarte  extends JWindow {
     String Path;
     Carte carte = new Carte();
     Notification notifiable;
@@ -15,6 +17,8 @@ public class LoadCarte {
 
 
 
+        setSize(400,300);
+        setVisible(true);
     }
 
 
@@ -23,5 +27,10 @@ public class LoadCarte {
     }
     public Carte getCarte() {
         return carte;
+    }
+
+
+    public static void main(String[] args) {
+        new LoadCarte();
     }
 }
