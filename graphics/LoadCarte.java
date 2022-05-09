@@ -11,7 +11,7 @@ public class LoadCarte  extends JWindow {
     Notification notifiable;
 
 
-
+//fixme créer la fonction de chargement du jeu de donnée
     public LoadCarte(){
 
 
