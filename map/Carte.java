@@ -1,18 +1,22 @@
 package SAE.map;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class Carte {
-    static public ArrayList<Site> sites = new ArrayList<>();
+    public HashMap<String,Site> sitees = new HashMap<>();
 
 
 
     public Carte(){
+
+
     }
 
     public void ajouterSite(char type, String nom){
         Site s = new Site(nom,type);
-        sites.add(s);
+        sitees.put(nom,s);
     }
 
 
@@ -20,25 +24,19 @@ public class Carte {
 
 
     public void selectSite(String name){
-        selectSite(sites.get(getIndexOf(name)));
+        selectSite(sitees.get(name));
     }
     public void selectSite(Site s){
         s.setSelectionné(true);
     }
 
     public void resetGraph(){
-        for(Site s:sites){
-         s.setSelectionné(false);
-         for(Route r:s.getRoutes()){
-             r.setSelectionné(false);
-         }
+        Set<String> key = sitees.keySet();
+        for(String k:key){
+            sitees.get(k).setSelectionné(false);
         }
     }
-    /**
-     * @param search
-     * @return retourne l'index du site de nom 'search'(si non trouvé retourne 1)
-     */
-    public int getIndexOf(String search){
+    /*public int getIndexOf(String search){
         int test = -1;
         int i = 0;
         while(test == -1) {
@@ -48,17 +46,41 @@ public class Carte {
                 i++;
         }
         return test;
+    }*/
+
+    public ArrayList<Site> getSites() {
+        ArrayList<Site> rtn = new ArrayList<>();
+        Set<String> key = sitees.keySet();
+        for(String k:key){
+            rtn.add(sitees.get(k));
+        }
+        return rtn;
+    }
+    public ArrayList<Site> voisinDe(String name,int jump){
+        return delDupli(voisinDe(sitees.get(name),jump));
+
+    }
+    public ArrayList<Site> voisinDe(Site site,int jump) {
+        ArrayList<Site> v = new ArrayList<>();
+        if(site!=null){
+            if(jump!=0){
+                for(String s:site.getVoisin()){
+                    v.addAll(voisinDe(s,jump-1));
+                }
+
+            }else{
+                v.add(site);
+            }
+        }
+        return v;
+    }
+    private ArrayList<Site> delDupli(ArrayList<Site> sites){
+        ArrayList<Site> newSite = new ArrayList<>();
+        for(Site s : sites)if(!newSite.contains(s))newSite.add(s);
+        return newSite;
     }
 
-    public static ArrayList<Site> getSites() {
-        return sites;
-    }
-
-    /**
-     * @param index
-     * @param d
-     * @return retourne une chaine de caractere ce composant du nom des voisins à d-distances en noeud separé par un '.'
-     */
+    /*
     public String voisinDe(int  index,int d){
         String rtn = "";
         if(index!=-1){
@@ -72,22 +94,19 @@ public class Carte {
             }
         }
         return rtn;
-    }
-    static void listerLesSite(){
+    }*/
+    void listerLesSite(){
         System.out.println("liste des villes:");
-        for (Site s: sites) {
+        for (Site s: getSites()) {
             if(s.getType()=='V') System.out.println("\t" + s.getNom());
         }
         System.out.println("liste des centres de loisir:");
-        for (Site s: sites) {
+        for (Site s: getSites()) {
             if(s.getType()=='L') System.out.println("\t" + s.getNom());
         }
         System.out.println("liste des restaurant:");
-        for (Site s: sites) {
+        for (Site s: getSites()) {
             if(s.getType()=='R') System.out.println("\t" + s.getNom());
         }
     }
-
-
-
 }
