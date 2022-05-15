@@ -17,7 +17,5 @@ public class TestAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         target.getLog().addLine(target.getChoixSite1().getChoix()+" -> "+target.getChoixSite2().getChoix());
-
-
     }
 }

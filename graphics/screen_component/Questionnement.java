@@ -8,14 +8,14 @@ import java.awt.event.ActionListener;
 /**
  *  /!\ le premier composant n'a pas 0 comme action
  */
-public class Questionnement extends JPanel implements ActionListener {
+public class Questionnement extends JPanel {
 
 
 
     int choix;
     ButtonGroup buttons=new ButtonGroup();
     JScrollPane view;
-    Screen target;
+
 
     public Questionnement(){
         init();
@@ -42,9 +42,7 @@ public class Questionnement extends JPanel implements ActionListener {
     }
 
 
-    public void link(Screen c){
-    target =c;
-    }
+
 
     public int getChoix(){
         /** /!\ le premier composant n'a pas 0 comme action */
@@ -57,15 +55,6 @@ public class Questionnement extends JPanel implements ActionListener {
         return view;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String cmd=e.getActionCommand();
-        choix=Integer.parseInt(cmd)-1;
-
-        System.out.println(choix);
-
-        //parent.action(choix);
-    }
 
 
 

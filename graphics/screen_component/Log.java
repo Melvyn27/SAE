@@ -39,9 +39,8 @@ public class Log extends JPanel {
 
     public void clear(){
         removeAll();
-        //setSize(this.getWidth(),getComponentCount()*25);
         System.out.println("component free");
-        revalidate();
+        view.revalidate();
     }
     public JScrollPane getView() {
         return view;

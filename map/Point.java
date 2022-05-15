@@ -1,5 +1,9 @@
-package SAE.graphics.graphComponent;
+package SAE.map;
 
+
+/**
+ * class de coordonnée
+ */
 public class Point {
     int x;
     int y;

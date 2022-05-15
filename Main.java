@@ -1,46 +1,15 @@
 package SAE;
 
-import SAE.assets.Notification;
 import SAE.graphics.FileChooser;
-import SAE.graphics.LoadCarte;
-import SAE.map.Carte;
-import SAE.map.Route;
-import SAE.map.Site;
 
-public class Main implements Notification {
+public class Main {
     FileChooser fileChooser=new FileChooser();
 
     public static void main(String[] args) {
-        Main prgm = new Main();
-
-
-
-
-
-
-
-
+        //Main prgm = new Main();
+        new FileChooser();
     }
 
-
-
-
-    @Override
-    public void newNotification(int id,String notif) {
-        switch (id){
-            case 0:
-
-                break;
-            case 1:
-
-                break;
-            default:
-
-        }
-
-
-
-    }
 
 
 

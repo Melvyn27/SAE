@@ -1,7 +1,5 @@
 package SAE.map;
 
-import SAE.graphics.graphComponent.Point;
-
 public class Route {
 
     char type;

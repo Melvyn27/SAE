@@ -1,36 +1,22 @@
 package SAE.graphics;
 
-import SAE.assets.Notification;
 import SAE.map.Carte;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class LoadCarte  extends JWindow {
-    String Path;
-    Carte carte = new Carte();
-    Notification notifiable;
+public class LoadCarte  extends JFrame {
 
 
-//fixme créer la fonction de chargement du jeu de donnée
+
     public LoadCarte(){
-
-
-
-
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(400,300);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
+    //todo créer l'interafce graphique de chargement
 
 
-    public void setNotifiable(Notification notifiable){
-        this.notifiable=notifiable;
-    }
-    public Carte getCarte() {
-        return carte;
-    }
 
-
-    public static void main(String[] args) {
-        new LoadCarte();
-    }
 }

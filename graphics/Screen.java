@@ -22,7 +22,7 @@ public class Screen extends JFrame implements ActionListener {
     JPanel choixPanel = new JPanel();
     JPanel globalPane;
     //
-    Questionnement quest = new Questionnement();
+    Questionnement quest = questionnementContructeur();
     Log log = new Log();
     ChoixSite choixSite1 = new ChoixSite();
     ChoixSite choixSite2 = new ChoixSite();
@@ -53,7 +53,7 @@ public class Screen extends JFrame implements ActionListener {
         globalPane = (JPanel) this.getContentPane();
         setVisible(true);
         setSize(800,400);
-        setDefaultCloseOperation(3);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(600,500));
         lowPanel.setPreferredSize(new Dimension(0,150));
         globalSplit.setDividerLocation(300);
@@ -61,50 +61,44 @@ public class Screen extends JFrame implements ActionListener {
         topSplit.setDividerSize(5);
         lowSplit.setDividerSize(5);
 
-        //-----set-des-panneaux-secondaire-----------------
+
         {
             //
             lowPanel.setLayout(new BorderLayout());
-            quest.link(this);
-            quest.getView().setPreferredSize(new Dimension(300, 0));
 
-            quest.addChoix("ajout question",new TestAction(this));
-            quest.addChoix("clear");
-            quest.addChoix("ajout choix site 1");
             //
             topPanel.setLayout(new BorderLayout());
 
             //
             choixPanel.setLayout(new GridLayout(0,2,1,1));
 
+        }//-----set-des-panneaux-secondaire-----------------
 
-
-
-        }
-        //------ajout-des-panneau----------
         {
             globalPane.add(globalSplit);
             topPanel.add(topSplit);
             choixPanel.add(choixSite1.getView());
             choixPanel.add(choixSite2.getView());
             lowPanel.add(lowSplit);
-        }
+        }//------ajout-des-panneau----------
 
 
 
 
 
     }
-/*
-    public void action(int act){
-        System.out.println("action performed : " + act);
+    //todo: creation des questionnement et des actions requisent
+    Questionnement questionnementContructeur(){
+        Questionnement questionnement = new Questionnement();
 
-        if(act == 0) log.addLine("lol");
-        else if(act == 1) log.clear();
-        else if(act == 2) choixSite1.addChoix("new site");
-        //System.out.println("nb component : " + log.getComponentCount());
+        questionnement.addChoix("ajout question",new TestAction(this));
 
-    }*/
+        questionnement.addChoix("clear");
+
+        questionnement.addChoix("ajout choix site 1");
+
+        return questionnement;
+    }
 
     public Log getLog() {
         return log;
@@ -125,5 +119,9 @@ public class Screen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public static void main(String[] args) {
+        new Screen();
     }
 }
