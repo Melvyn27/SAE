@@ -1,7 +1,5 @@
 package SAE.map;
 
-import SAE.graphics.graphComponent.Point;
-
 import java.util.ArrayList;
 
 public class Site {
@@ -60,4 +58,10 @@ public class Site {
     public ArrayList<Route> getRoutes() {
         return routes;
     }
+    public Route getRoute(String dest){
+        for(Route r:routes)if(r.getDestination()==dest)return r;
+
+        return null;
+    }
 }
+
