@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class Carte {
-    public HashMap<String,Site> sitees = new HashMap<>();
+    public HashMap<String,Site> sites = new HashMap<>();
 
 
 
@@ -13,63 +13,87 @@ public class Carte {
 
 
     }
-
     public void ajouterSite(char type, String nom){
         Site s = new Site(nom,type);
-        sitees.put(nom,s);
+        sites.put(nom,s);
     }
-
-
-
-
-
+    /**
+     * permet de savoir quels sites afficher ou non
+     * faire attention a bien utiliser resetGraph() avant utilisation
+     * @param name
+     */
     public void selectSite(String name){
-        selectSite(sitees.get(name));
+        selectSite(sites.get(name));
     }
+    /**
+     * permet de savoir quel site afficher ou non
+     * faire attention a bien utiliser resetGraph() avant utilisation
+     * @param s
+     */
     public void selectSite(Site s){
         s.setSelectionné(true);
     }
-
-    public void resetGraph(){
-        Set<String> key = sitees.keySet();
-        for(String k:key){
-            sitees.get(k).setSelectionné(false);
+    /**
+     * permet de savoir quel site afficher ou non
+     * faire attention a bien utiliser resetGraph() avant utilisation
+     * @param sites
+     */
+    public void selectAllSite(ArrayList<Site> sites){
+        for(Site s : sites){
+            s.setSelectionné(true);
         }
     }
-    /*public int getIndexOf(String search){
-        int test = -1;
-        int i = 0;
-        while(test == -1) {
-            if (search.equals(sites.get(i).getNom()))
-                test = i;
-            else
-                i++;
+    /**
+     * permet d'afficher tout le graph
+     */
+    public void selectAllSite(){
+        for(Site s : getSites()){
+            s.setSelectionné(true);
+            for(Route r:s.getRoutes())r.setSelectionné(true);
         }
-        return test;
-    }*/
+    }
+
+
+    /**
+     * a utiliser avant l'appel de fonction pouvant agir sur l'affichage du graph
+     */
+    public void resetGraph(){
+        for(Site s : getSites()){
+            s.setSelectionné(false);
+            for(Route r:s.getRoutes())r.setSelectionné(false);
+        }
+    }
+
+    public boolean containSite(String name){
+        return sites.containsKey(name);
+    }
 
     public ArrayList<Site> getSites() {
         ArrayList<Site> rtn = new ArrayList<>();
-        Set<String> key = sitees.keySet();
+        Set<String> key = sites.keySet();
         for(String k:key){
-            rtn.add(sitees.get(k));
+            rtn.add(sites.get(k));
         }
         return rtn;
     }
     public ArrayList<Site> voisinDe(String name,int jump){
-        return delDupli(voisinDe(sitees.get(name),jump));
+        resetGraph();
+        return delDupli(voisinDe(sites.get(name),jump));
 
     }
-    public ArrayList<Site> voisinDe(Site site,int jump) {
+    private ArrayList<Site> voisinDe(Site site,int jump) {
         ArrayList<Site> v = new ArrayList<>();
         if(site!=null){
             if(jump!=0){
                 for(String s:site.getVoisin()){
+                    site.getRoute(s).setSelectionné(true);
                     v.addAll(voisinDe(s,jump-1));
                 }
 
             }else{
                 v.add(site);
+                selectSite(site);
+
             }
         }
         return v;
@@ -80,21 +104,7 @@ public class Carte {
         return newSite;
     }
 
-    /*
-    public String voisinDe(int  index,int d){
-        String rtn = "";
-        if(index!=-1){
-            if(d!=0){
-                for(String site:sites.get(index).getVoisin()){
-                    voisinDe(getIndexOf(site),d-1);
-                }
 
-            }else{
-                rtn+= sites.get(index).getNom()+".";
-            }
-        }
-        return rtn;
-    }*/
     void listerLesSite(){
         System.out.println("liste des villes:");
         for (Site s: getSites()) {
