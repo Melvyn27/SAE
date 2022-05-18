@@ -12,10 +12,6 @@ public class VerificationErrorScreen extends JFrame {
         add(new JLabel("fichier incomplet"));
         init();
     }
-
-    /**
-     * @param site
-     */
     public VerificationErrorScreen(String site){
         super("erreur de chargement");
         add(new JLabel("le site "+site+" est introuvable"));

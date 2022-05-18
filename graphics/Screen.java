@@ -41,12 +41,12 @@ public class Screen extends JFrame implements ActionListener {
     }
 
 
-    /** —   └   ┐   ┬   ├   │
-     * globalPane——globalSpit—┬—topPanel——topSplit—┬—choixSite—┬—choixSite1
-     *                        │                    │           └—choixSite2
-     *                        │                    └—graph
-     *                        └—lowPanel——lowSplit—┬—quest
-     *                                             └—log
+    /* —   └   ┐   ┬   ├   │
+     * globalPane——globalSplit—┬—topPanel——topSplit—┬—choixSite—┬—choixSite1
+     *                         │                    │           └—choixSite2
+     *                         │                    └—graph
+     *                         └—lowPanel——lowSplit—┬—quest
+     *                                              └—log
      */
     void init(){
         //-----set-des-panneaux-principaux-----------------

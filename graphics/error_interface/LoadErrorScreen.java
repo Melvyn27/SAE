@@ -33,4 +33,5 @@ public class LoadErrorScreen extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
 }
