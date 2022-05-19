@@ -1,4 +1,4 @@
-package SAE.graphics.comboBoxModel;
+package SAE.graphics2.comboBoxModel;
 
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
