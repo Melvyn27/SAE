@@ -1,15 +1,20 @@
 package SAE.exeption;
 
-import SAE.graphics.error_interface.LoadErrorScreen;
+import javax.swing.*;
 
 public class LoadExeption extends Exception {
+    JFrame frame;
     public LoadExeption() {
-        new LoadErrorScreen();
+        JOptionPane.showMessageDialog(frame,"erreur de chargement","erreur de chargement",JOptionPane.WARNING_MESSAGE);
     }
     public LoadExeption(String line) {
-        new LoadErrorScreen(line);
+        JOptionPane.showMessageDialog(frame,"erreur de chargement a la ligne "+line,"erreur de chargement",JOptionPane.WARNING_MESSAGE);
     }
     public LoadExeption(String line, String car) {
-        new LoadErrorScreen(line,car);
+        JOptionPane.showMessageDialog(frame,"erreur de chargement a la ligne "+line+ " caractère "+car,"erreur de chargement",JOptionPane.WARNING_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        new LoadExeption();
     }
 }
