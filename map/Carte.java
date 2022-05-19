@@ -79,7 +79,6 @@ public class Carte {
     public ArrayList<Site> voisinDe(String name,int jump){
         resetGraph();
         return delDupli(voisinDe(sites.get(name),jump));
-
     }
     private ArrayList<Site> voisinDe(Site site,int jump) {
         ArrayList<Site> v = new ArrayList<>();
@@ -89,11 +88,9 @@ public class Carte {
                     site.getRoute(s).setSelectionné(true);
                     v.addAll(voisinDe(s,jump-1));
                 }
-
             }else{
                 v.add(site);
                 selectSite(site);
-
             }
         }
         return v;

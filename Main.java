@@ -3,7 +3,7 @@ package SAE;
 import SAE.graphics.FileChooser;
 
 public class Main {
-    FileChooser fileChooser=new FileChooser();
+    //FileChooser fileChooser=new FileChooser();
 
     public static void main(String[] args) {
         //Main prgm = new Main();

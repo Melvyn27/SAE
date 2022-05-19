@@ -15,6 +15,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Screen extends JFrame implements ActionListener {
+
+    //todo refaire entierement l'affichage
     Carte carte = new Carte();
     //----creation-des-composants-----
     JPanel topPanel = new JPanel();
@@ -49,6 +51,10 @@ public class Screen extends JFrame implements ActionListener {
      *                                              └—log
      */
     void init(){
+
+
+
+
         //-----set-des-panneaux-principaux-----------------
         globalPane = (JPanel) this.getContentPane();
         setVisible(true);
