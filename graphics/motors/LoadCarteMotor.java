@@ -41,7 +41,6 @@ public class LoadCarteMotor {
     void load() throws LoadExeption, VerificationExeption {
 
 
-
         verification();
     }
     void verification() throws VerificationExeption{
