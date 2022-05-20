@@ -14,7 +14,7 @@ public class Site {
         this.type = type;
     }
 
-    void ajouterRoute(char type, int longueur, String destination){
+    public void ajouterRoute(char type, int longueur, String destination){
         if(!nom.equals(destination)){
             Route r = new Route(type,longueur,destination,nom);
             routes.add(r);

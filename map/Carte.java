@@ -17,6 +17,9 @@ public class Carte {
         Site s = new Site(nom,type);
         sites.put(nom,s);
     }
+    public void ajouterSite(Site site){
+        sites.put(site.getNom(),site);
+    }
     /**
      * permet de savoir quels sites afficher ou non
      * faire attention a bien utiliser resetGraph() avant utilisation
