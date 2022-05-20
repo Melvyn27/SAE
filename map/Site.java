@@ -14,11 +14,7 @@ public class Site {
         this.type = type;
     }
 
-<<<<<<< Updated upstream
     public void ajouterRoute(char type, int longueur, String destination){
-=======
-    public void ajouterRoute(char type, String destination){
->>>>>>> Stashed changes
         if(!nom.equals(destination)){
             Route r = new Route(type,longueur,destination,nom);
             routes.add(r);
