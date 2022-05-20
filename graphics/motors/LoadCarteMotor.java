@@ -16,21 +16,21 @@ public class LoadCarteMotor {
     LoadCarte loadCarte;
 
 
-    public LoadCarteMotor(String path){
-        this.path=path;
-        loadCarte=new LoadCarte();
+    public LoadCarteMotor(String path) {
+        this.path = path;
+        loadCarte = new LoadCarte();
 
         start();
     }
 
-    public void start(){
-        System.out.println("load start from file: "+path);
+    public void start() {
+        System.out.println("load start from file: " + path);
 
         try {
             load();
-                System.out.println("load done");
-                loadCarte.dispose();
-                new Screen();
+            System.out.println("load done");
+            loadCarte.dispose();
+            new Screen();
         } catch (LoadExeption e) {
             e.printStackTrace();
         } catch (VerificationExeption e) {
@@ -42,8 +42,9 @@ public class LoadCarteMotor {
 
 
     //todo remplir la fonction de chargement du jeu de donnée et ajouter les exeptions
-    void load() throws LoadExeption, VerificationExeption {
-
+    void load() throws LoadExeption, VerificationExeption, IOException {
+        BufferedReader br = new BufferedReader(new FileReader(path));
+        String line;
         Character typeS;
         String source = null;
         String destination = null;
@@ -77,16 +78,16 @@ public class LoadCarteMotor {
                 }
                 Route r = new Route(typeA,Integer.parseInt(distance),destination, source);
             }
-
+            
         }
 
 
         verification();
     }
-    void verification() throws VerificationExeption{
-        for(Site s:carte.getSites()){
-            for (Route r:s.getRoutes()){
-                if(!carte.containSite(r.getDestination()))throw new VerificationExeption(r.getDestination());
+
+    void verification() throws VerificationExeption {
+        for (Site s : carte.getSites()) {
+            for (Route r : s.getRoutes()) {
                 if (!carte.containSite(r.getDestination())) throw new VerificationExeption(r.getDestination());
             }
         }
