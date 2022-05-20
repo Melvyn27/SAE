@@ -1,19 +1,30 @@
 package SAE.graphics2.comboBoxModel;
 
+import SAE.map.Site;
+
 import javax.swing.*;
 import javax.swing.event.ListDataListener;
 import java.util.ArrayList;
 
-public class siteComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
+public class SiteComboBoxModel extends AbstractListModel<String> implements ComboBoxModel<String> {
 
 ArrayList<String> sites = new ArrayList<>();
-
-
+String selectionné;
 
     public void addChoix(String name){
         sites.add(name);
         fireIntervalAdded(sites,sites.size()-1,sites.size()-1);
         setSelectedItem(sites.get(sites.size()-1));
+    }
+    public void resetChoix(){
+        sites.clear();
+        fireIntervalRemoved(sites,0,sites.size()-1);
+        setSelectedItem(null);
+    }
+    public void addChoix(ArrayList<Site> sites){
+        for(Site s: sites)this.sites.add(s.getNom());
+        fireIntervalAdded(sites,0,sites.size()-1);
+        setSelectedItem(this.sites.get(0));
     }
 
     @Override
@@ -28,12 +39,12 @@ ArrayList<String> sites = new ArrayList<>();
 
     @Override
     public void setSelectedItem(Object anItem) {
-
+        selectionné = anItem.toString();
     }
 
     @Override
     public Object getSelectedItem() {
-        return null;
+        return selectionné;
     }
 
     @Override
