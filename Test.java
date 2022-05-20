@@ -1,6 +1,7 @@
 
 package SAE;
 
+import SAE.actionEvent.ChargementParallele;
 import com.sun.source.util.TaskEvent;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class Test {
         this.test = test;
     }
 
-/*  test lancement parallel utile pour la methode load
+  /*test lancement parallel utile pour la methode load
     public static void main(String[] args) {
         JProgressBar jb = new JProgressBar();
         Thread t= new Thread(){
@@ -40,7 +41,31 @@ public class Test {
         };
         t.start();
         System.out.println("here");
-        //Thread.sleep(10000);
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        t.stop();
     }
-    */
+   */
+
+    public static void main(String[] args) {
+        ChargementParallele chargement = new ChargementParallele(null);
+        chargement.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        chargement.arreter();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(chargement.isAlive());
+        chargement.start();
+    }
+
 }
