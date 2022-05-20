@@ -1,13 +1,14 @@
 package SAE;
 
 import SAE.graphics.FileChooser;
+import SAE.graphics2.Screen;
 
 public class Main {
     //FileChooser fileChooser=new FileChooser();
 
     public static void main(String[] args) {
         //Main prgm = new Main();
-        new FileChooser();
+        new Screen();
     }
 
 
