@@ -1,7 +1,7 @@
 package SAE.graphics2;
 
 import SAE.graphics2.comboBoxModel.SiteComboBoxModel;
-import SAE.graphics2.screenComponent.GraphPanel;
+import SAE.graphics2.screenComponent.FileLoaderPanel;
 import SAE.graphics2.screenComponent.Log;
 import SAE.map.Carte;
 import SAE.map.Site;
@@ -15,6 +15,7 @@ public class Screen extends JFrame {
 
     //----
     Log log = new Log();
+    FileLoaderPanel fileChooserPanel = new FileLoaderPanel(this);
     //GraphPanel graph = new GraphPanel();
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
     SiteComboBoxModel siteComboBoxModel2 = new SiteComboBoxModel();
@@ -32,19 +33,19 @@ public class Screen extends JFrame {
     }
     private void setUp(){
         setDefaultCloseOperation(3);
-        setSize(500,300);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
     private void init(){
         rightPanel.addTab("log",null,log,"afficher les resultats");
+        rightPanel.addTab("file",null,fileChooserPanel,"choose a file to load");
 
         JPanel p1 = new JPanel(new FlowLayout());//top panel of leftPanel
         p1.add(choixSite1);
         p1.add(choixSite2);
         leftPanel.setLayout(new GridLayout(2,1));
         leftPanel.add(p1);
-
 
 
 
@@ -60,6 +61,9 @@ public class Screen extends JFrame {
         siteComboBoxModel2.addChoix(s);
     }
 
+    public void setCarte(Carte carte) {
+        this.carte = carte;
+    }
 
     public static void main(String[] args) {
         new Screen();
