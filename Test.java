@@ -51,7 +51,7 @@ public class Test {
    */
 
     public static void main(String[] args) {
-        ChargementParallele chargement = new ChargementParallele(null);
+        ChargementParallele chargement = new ChargementParallele(null,null);
         chargement.start();
         try {
             Thread.sleep(1000);

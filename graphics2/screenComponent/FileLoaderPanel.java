@@ -4,6 +4,7 @@ import SAE.actionEvent.ChargementParallele;
 import SAE.graphics2.Screen;
 import SAE.map.Carte;
 
+import javax.security.auth.Destroyable;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -13,10 +14,11 @@ public class FileLoaderPanel extends JPanel {
     Screen target;
 
     ChargementParallele chargement;
+    public JLabel information = new JLabel();
 
     JFileChooser fileChooser = new JFileChooser();
-    JProgressBar loadSiteBar = new JProgressBar();
-    JProgressBar loatDestBar = new JProgressBar();
+    public JProgressBar loadSiteBar = new JProgressBar();
+    public JProgressBar loatDestBar = new JProgressBar();
     public FileLoaderPanel(Screen target){
         this.target = target;
         init();
@@ -37,13 +39,17 @@ public class FileLoaderPanel extends JPanel {
 
         JButton loadButton = new JButton("charger");
         loadButton.addActionListener(s->{
-            chargement=new ChargementParallele(this);
-            chargement.start();
+            if(fileChooser.getSelectedFile()==null)return;
+            chargement=new ChargementParallele(this,fileChooser.getSelectedFile());//creation de l'objet
+            chargement.start();//demarage de l'objet
         });
 
         JButton cancelButton = new JButton("annuler");
         cancelButton.addActionListener(c->{
-            if(chargement!=null)chargement.arreter();
+            if(chargement!=null && chargement.isRunning()){
+                chargement.arreter();
+                chargement=null;//destruction de l'objet
+            }
         });
 
 
@@ -53,11 +59,11 @@ public class FileLoaderPanel extends JPanel {
         p1.add(cancelButton);
 
 
-        p2.setLayout(new GridLayout(2,1,0,5));
+        p2.setLayout(new GridLayout(3,1,0,5));
 
         p2.add(loadSiteBar);
         p2.add(loatDestBar);
-
+        p2.add(information);
         p0.add(p2,BorderLayout.CENTER);
         p0.add(p1,BorderLayout.EAST);
 
