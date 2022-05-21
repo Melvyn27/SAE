@@ -4,10 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Log extends JPanel {
+    JPanel downPanel = new JPanel();
     JPanel upPanel = new JPanel();
-    JPanel downPanel = new JPanel(new FlowLayout());
 
-    JScrollPane view = new JScrollPane(upPanel);
+    JScrollPane view = new JScrollPane(downPanel);
 
 
 
@@ -19,17 +19,27 @@ public class Log extends JPanel {
 
 
     void init(){
-        upPanel.setLayout(new BoxLayout(upPanel,BoxLayout.Y_AXIS));
-        add(upPanel,BorderLayout.CENTER);
-        add(downPanel,BorderLayout.SOUTH);
+        setLayout(new BorderLayout());
+        downPanel.setLayout(new BoxLayout(downPanel,BoxLayout.Y_AXIS));
+        add(view,BorderLayout.CENTER);
+        add(upPanel,BorderLayout.NORTH);
+        view.setBorder(null);
 
+
+        upPanel.setLayout(new BoxLayout(upPanel,BoxLayout.X_AXIS));
         JButton clear = new JButton("Clear");
         clear.addActionListener(c->clear());
-        downPanel.add(clear);
+        upPanel.add(clear);
+
+        JButton test = new JButton("test");
+        test.addActionListener(t->addLine("test"));
+        upPanel.add(test);
+
+
+
     }
     public void addLine(String str){
-        upPanel.add(new JLabel(str));
-        revalidate();
+        downPanel.add(new JLabel(str));
         JScrollBar bar= view.getVerticalScrollBar();
         //fixme bug de scrollBar
         bar.setValue(bar.getMaximum());
@@ -38,9 +48,10 @@ public class Log extends JPanel {
 
 
     public void clear(){
-        upPanel.removeAll();
+        downPanel.removeAll();
         System.out.println("component free");
-        revalidate();
+        view.revalidate();
+        repaint();
     }
     /*public JScrollPane getView() {
         return view;

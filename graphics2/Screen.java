@@ -64,6 +64,9 @@ public class Screen extends JFrame {
     public void setCarte(Carte carte) {
         this.carte = carte;
     }
+    public Log getLog(){
+        return log;
+    }
 
     public static void main(String[] args) {
         new Screen();
