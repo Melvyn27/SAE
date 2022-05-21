@@ -1,10 +1,7 @@
 
 package SAE;
 
-import SAE.actionEvent.ChargementParallele;
-import com.sun.source.util.TaskEvent;
-
-import javax.swing.*;
+import SAE.graphics2.threadedMotors.ChargementParallele;
 
 public class Test {
     private int test;

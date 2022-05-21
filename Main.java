@@ -1,6 +1,5 @@
 package SAE;
 
-import SAE.graphics.FileChooser;
 import SAE.graphics2.Screen;
 
 public class Main {
