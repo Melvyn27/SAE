@@ -1,10 +1,9 @@
 package SAE.graphics2.screenComponent;
 
-import SAE.actionEvent.ChargementParallele;
+import SAE.graphics2.threadedMotors.ChargementParallele;
 import SAE.graphics2.Screen;
 import SAE.map.Carte;
 
-import javax.security.auth.Destroyable;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -18,7 +17,7 @@ public class FileLoaderPanel extends JPanel {
 
     JFileChooser fileChooser = new JFileChooser();
     public JProgressBar loadSiteBar = new JProgressBar();
-    public JProgressBar loatDestBar = new JProgressBar();
+    public JProgressBar loadDestBar = new JProgressBar();
     public FileLoaderPanel(Screen target){
         this.target = target;
         init();
@@ -39,14 +38,15 @@ public class FileLoaderPanel extends JPanel {
 
         JButton loadButton = new JButton("charger");
         loadButton.addActionListener(s->{
-            if(fileChooser.getSelectedFile()==null)return;
-            chargement=new ChargementParallele(this,fileChooser.getSelectedFile());//creation de l'objet
-            chargement.start();//demarage de l'objet
+            if(fileChooser.getSelectedFile()!=null || chargement==null) {//filtre de lancement
+                chargement = new ChargementParallele(this, fileChooser.getSelectedFile());//creation de l'objet
+                chargement.start();//demarage de l'objet
+            }
         });
 
         JButton cancelButton = new JButton("annuler");
         cancelButton.addActionListener(c->{
-            if(chargement!=null && chargement.isRunning()){
+            if(chargement!=null && chargement.isRunning()){//filtre d'arret
                 chargement.arreter();
                 chargement=null;//destruction de l'objet
             }
@@ -62,19 +62,24 @@ public class FileLoaderPanel extends JPanel {
         p2.setLayout(new GridLayout(3,1,0,5));
 
         p2.add(loadSiteBar);
-        p2.add(loatDestBar);
+        p2.add(loadDestBar);
         p2.add(information);
         p0.add(p2,BorderLayout.CENTER);
         p0.add(p1,BorderLayout.EAST);
 
         this.add(p0,BorderLayout.SOUTH);
 
+
+
+
     }
 
     public void confirmeCarte(Carte newCarte){
         target.setCarte(newCarte);
     }
-
+    public Screen getTarget(){
+        return target;
+    }
 
 
 
