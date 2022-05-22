@@ -40,7 +40,6 @@ public class FileLoaderPanel extends JPanel {
         loadButton.addActionListener(s->{
             if(fileChooser.getSelectedFile()!=null || chargement==null) {//filtre de lancement
                 chargement = new ChargementParallele(this, fileChooser.getSelectedFile());//creation de l'objet
-                chargement.start();//demarage de l'objet
             }
         });
 
