@@ -63,5 +63,12 @@ public class Site {
 
         return null;
     }
+
+    @Override
+    public String toString() {
+        String str=nom+":";
+        for(Route r:routes)str+=r.destination+",";
+        return str;
+    }
 }
 

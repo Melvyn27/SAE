@@ -1,17 +1,28 @@
 package SAE.graphics2.screenComponent;
 
+import SAE.actionEvent.ClasserLesVilles;
+import SAE.graphics2.Screen;
+import SAE.graphics2.format.LogFormat;
+import SAE.map.Site;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Log extends JPanel {
+    LogFormat format = LogFormat.all;
+
     JPanel downPanel = new JPanel();
     JPanel upPanel = new JPanel();
 
     JScrollPane view = new JScrollPane(downPanel);
 
+    Screen screen;
 
 
-    public Log() {
+
+    public Log(Screen target) {
+        this.screen =target;
         init();
     }
 
@@ -35,6 +46,9 @@ public class Log extends JPanel {
         test.addActionListener(t->addLine("test"));
         upPanel.add(test);
 
+        JButton testsite = new JButton("test site");
+        testsite.addActionListener(new ClasserLesVilles(screen));
+        upPanel.add(testsite);
 
 
     }
@@ -45,6 +59,18 @@ public class Log extends JPanel {
         bar.setValue(bar.getMaximum());
         revalidate();
     }
+    public void addLine(Site site){
+        switch (format){
+            case all -> addLine(site.toString());
+            case reduce -> addLine(site.getNom());
+            case simple -> addLine(site.getNom());
+        }
+    }
+    public void addLines(ArrayList<Site> sites){
+        for (Site s:sites)addLine(s);
+    }
+
+
     //todo ajouter methode: ecrire un ensemble sites en fonction d'un format d'affichage
 
 
@@ -54,6 +80,11 @@ public class Log extends JPanel {
         view.revalidate();
         repaint();
     }
+
+    public void setFormat(LogFormat format) {
+        this.format = format;
+    }
+
     /*public JScrollPane getView() {
         return view;
     }
