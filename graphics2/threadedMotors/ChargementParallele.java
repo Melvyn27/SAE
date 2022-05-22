@@ -2,6 +2,7 @@ package SAE.graphics2.threadedMotors;
 
 import SAE.exeption.LoadExeption;
 import SAE.exeption.VerificationExeption;
+import SAE.graphics2.Screen;
 import SAE.graphics2.screenComponent.FileLoaderPanel;
 import SAE.map.Carte;
 import SAE.map.Route;
@@ -11,13 +12,14 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
 
 public class ChargementParallele extends Thread{
     private volatile boolean running = true;
-    private Carte carte = new Carte();
-    FileLoaderPanel target;
+
+    Screen screen;
     File file;
+
+    private Carte carte=new Carte();
 
     int caractereCount=0;
     int lineCount=0;
@@ -25,9 +27,11 @@ public class ChargementParallele extends Thread{
 
 
 
-    public ChargementParallele(FileLoaderPanel target, File file){
-        this.target =target;
+    public ChargementParallele(Screen target, File file){
+
+        this.screen =target;
         this.file = file;
+
         System.out.println("created");
         start();
     }
@@ -35,16 +39,17 @@ public class ChargementParallele extends Thread{
     public void run() {
         setTargetMessage("chargement de "+file.getName());//indication de chargement sur le panel
         System.out.println("started");
-        target.information.setForeground(new Color(0,0,0));
+        screen.getFileChooserPanel().information.setForeground(new Color(0,0,0));
         try {
             long milliTimeCount = System.currentTimeMillis();
             load();
-            target.confirmeCarte(carte);
+            screen.getFileChooserPanel().confirmeCarte(carte);
             setTargetMessage("chargement fini.");//indication de chargement sur le panel
-            target.loadSiteBar.setStringPainted(false);
-            target.loadDestBar.setStringPainted(false);
+            screen.getFileChooserPanel().loadSiteBar.setStringPainted(false);
+            screen.getFileChooserPanel().loadDestBar.setStringPainted(false);
             System.out.println("ended");
-            target.getTarget().getLog().addLine("file "+file.getName()+" loaded in: "+(System.currentTimeMillis()-milliTimeCount)+" ms");
+            screen.getLog().addLine("file "+file.getName()+" loaded in: "+(System.currentTimeMillis()-milliTimeCount)+" ms");
+            screen.getLog().addLines(carte.getSites());
         } catch (LoadExeption e) {
             //e.printStackTrace();
 
@@ -76,44 +81,44 @@ public class ChargementParallele extends Thread{
         setTargetMessage("chargement annulé");//indication de chargement sur le panel
     }
     public void setTargetMessage(String message){
-        target.information.setText(message);
+        screen.getFileChooserPanel().information.setText(message);
     }
 
     void load() throws LoadExeption, VerificationExeption, IOException, InterruptedException {
-        target.loadSiteBar.setStringPainted(true);
-        target.loadDestBar.setStringPainted(true);
-        target.loadSiteBar.setMaximum(totalLineCount());//affichage
+        screen.getFileChooserPanel().loadSiteBar.setStringPainted(true);
+        screen.getFileChooserPanel().loadDestBar.setStringPainted(true);
+        screen.getFileChooserPanel().loadSiteBar.setMaximum(totalLineCount());//affichage
         lineCount=0;//affichage
         Scanner inputFile = new Scanner(file);
         String line = "";
-        if(!inputFile.hasNextLine()){throw new LoadExeption(target,"le fichier"+file.getName()+" est vide");}//pre-condition
+        if(!inputFile.hasNextLine()){throw new LoadExeption(screen.getFileChooserPanel(),"le fichier"+file.getName()+" est vide");}//pre-condition
         do{
             line=lineClear(inputFile.nextLine());
-            target.loadDestBar.setMaximum(line.length());//affichage
+            screen.getFileChooserPanel().loadDestBar.setMaximum(line.length());//affichage
             caractereCount=0;//affichage et programme
             String src="";
             char type;
             if(!line.matches("^[VRL],[a-zA-Z]*:([DAN],[0-9]*::[VRL],[a-zA-Z]*;)+;$")){
                 System.out.println(line);
-                throw new LoadExeption(target,lineCount);
+                throw new LoadExeption(screen.getFileChooserPanel(),lineCount);
             }//verification du format de la ligne
             ArrayList<String> goodLine = lineSeq(line);
             Site site=new Site(goodLine.get(0).substring(goodLine.get(0).indexOf(',')+1), goodLine.get(0).toCharArray()[0]);//creation site
-            if(carte.containSite(site.getNom()))throw new LoadExeption(target,lineCount+"", site.getNom());
-            target.loadSiteBar.setString("site: "+site.getNom());//affichage
-            target.loadDestBar.setMaximum(goodLine.size());//affichage
+            if(carte.containSite(site.getNom()))throw new LoadExeption(screen.getFileChooserPanel(),lineCount+"", site.getNom());
+            screen.getFileChooserPanel().loadSiteBar.setString("site: "+site.getNom());//affichage
+            screen.getFileChooserPanel().loadDestBar.setMaximum(goodLine.size());//affichage
             for(int i=1;i<goodLine.size();i++){
                 String r = goodLine.get(i);
                 char t = r.charAt(0);
                 String dist = r.substring(2,r.indexOf(':'));
                 String dest = r.substring(r.lastIndexOf(',')+1);
-                target.loadDestBar.setValue(i+1);//affichage
-                target.loadDestBar.setString("route: "+dest);
+                screen.getFileChooserPanel().loadDestBar.setValue(i+1);//affichage
+                screen.getFileChooserPanel().loadDestBar.setString("route: "+dest);
                 site.ajouterRoute(t,Integer.parseInt(dist),dest);
                 sleep(10);
             }//chargement route
             carte.ajouterSite(site);
-            target.loadSiteBar.setValue(lineCount+1);//affichage
+            screen.getFileChooserPanel().loadSiteBar.setValue(lineCount+1);//affichage
             lineCount++;//affichage
         }while (inputFile.hasNextLine());//chargement ligne
         verification();
@@ -121,19 +126,20 @@ public class ChargementParallele extends Thread{
 
 
     void verification() throws VerificationExeption, InterruptedException {
-        target.loadSiteBar.setValue(0);target.loadDestBar.setValue(0);//reset des bars
+        screen.getFileChooserPanel().loadSiteBar.setValue(0);
+        screen.getFileChooserPanel().loadDestBar.setValue(0);//reset des bars
 
         int i = 0;
-        target.loadSiteBar.setMaximum(carte.getSites().size());
+        screen.getFileChooserPanel().loadSiteBar.setMaximum(carte.getSites().size());
         for (Site s : carte.getSites()) {
-            target.loadSiteBar.setValue(i);
-            target.loadSiteBar.setString("carte/"+ s.getNom());
+            screen.getFileChooserPanel().loadSiteBar.setValue(i);
+            screen.getFileChooserPanel().loadSiteBar.setString("carte/"+ s.getNom());
             int j=0;
-            target.loadDestBar.setMaximum(s.getRoutes().size());
+            screen.getFileChooserPanel().loadDestBar.setMaximum(s.getRoutes().size());
             for (Route r : s.getRoutes()) {
-                target.loadDestBar.setValue(j);
-                target.loadDestBar.setString("site/"+r.getDestination());
-                if (!carte.containSite(r.getDestination()))throw new VerificationExeption(target,r.getDestination());
+                screen.getFileChooserPanel().loadDestBar.setValue(j);
+                screen.getFileChooserPanel().loadDestBar.setString("site/"+r.getDestination());
+                if (!carte.containSite(r.getDestination()))throw new VerificationExeption(screen.getFileChooserPanel(),r.getDestination());
 
                     j++;
                     sleep(10);
@@ -142,7 +148,8 @@ public class ChargementParallele extends Thread{
 
             i++;
         }
-        target.loadSiteBar.setValue(0);target.loadDestBar.setValue(0);//reset des bars
+        screen.getFileChooserPanel().loadSiteBar.setValue(0);
+        screen.getFileChooserPanel().loadDestBar.setValue(0);//reset des bars
     }
     private ArrayList<String> lineSeq(String line){
         ArrayList<String> seqline = new ArrayList<>();

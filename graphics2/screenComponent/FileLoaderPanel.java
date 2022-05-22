@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class FileLoaderPanel extends JPanel {
     //todo faire l'affichage et la gestion parallèle
-    Screen target;
+    Screen screen;
 
     ChargementParallele chargement;
     public JLabel information = new JLabel();
@@ -20,7 +20,7 @@ public class FileLoaderPanel extends JPanel {
     public JProgressBar loadSiteBar = new JProgressBar();
     public JProgressBar loadDestBar = new JProgressBar();
     public FileLoaderPanel(Screen target){
-        this.target = target;
+        this.screen = target;
         init();
     }
     private void init(){
@@ -41,7 +41,7 @@ public class FileLoaderPanel extends JPanel {
         JButton loadButton = new JButton("charger");
         loadButton.addActionListener(s->{
             if(fileChooser.getSelectedFile()!=null || chargement==null) {//filtre de lancement
-                chargement = new ChargementParallele(this, fileChooser.getSelectedFile());//creation de l'objet
+                chargement = new ChargementParallele(getScreen(), fileChooser.getSelectedFile());//creation de l'objet
             }
         });
 
@@ -76,10 +76,10 @@ public class FileLoaderPanel extends JPanel {
     }
 
     public void confirmeCarte(Carte newCarte){
-        target.setCarte(newCarte);
+        screen.setCarte(newCarte);
     }
-    public Screen getTarget(){
-        return target;
+    public Screen getScreen(){
+        return screen;
     }
 
 

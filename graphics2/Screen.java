@@ -19,7 +19,7 @@ public class Screen extends JFrame {
     Carte carte = new Carte();
 
     //----
-    Log log = new Log();
+    Log log = new Log(this);
     FileLoaderPanel fileChooserPanel = new FileLoaderPanel(this);
     //GraphPanel graph = new GraphPanel();
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
@@ -66,11 +66,46 @@ public class Screen extends JFrame {
         siteComboBoxModel2.addChoix(s);
     }
 
+
+    /**
+     * sere a rafraichir le graph
+     */
+    public void update(){
+
+
+
+
+    }
+
+    public Carte getCarte() {
+        return carte;
+    }
+
     public void setCarte(Carte carte) {
         this.carte = carte;
     }
     public Log getLog(){
         return log;
+    }
+
+    public FileLoaderPanel getFileChooserPanel() {
+        return fileChooserPanel;
+    }
+
+    public SiteComboBoxModel getSiteComboBoxModel1() {
+        return siteComboBoxModel1;
+    }
+
+    public SiteComboBoxModel getSiteComboBoxModel2() {
+        return siteComboBoxModel2;
+    }
+
+    public JComboBox<String> getChoixSite1() {
+        return choixSite1;
+    }
+
+    public JComboBox<String> getChoixSite2() {
+        return choixSite2;
     }
 
     public static void main(String[] args) {
