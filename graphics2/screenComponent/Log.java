@@ -45,6 +45,7 @@ public class Log extends JPanel {
         bar.setValue(bar.getMaximum());
         revalidate();
     }
+    //todo ajouter methode: ecrire un ensemble sites en fonction d'un format d'affichage
 
 
     public void clear(){

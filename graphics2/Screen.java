@@ -11,6 +11,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Screen extends JFrame {
+    //todo ajout d'un panneau 'Settings': but potentiel changer l'affichage des logs ou du graph
+
+
+
+
     Carte carte = new Carte();
 
     //----
