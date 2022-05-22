@@ -84,27 +84,23 @@ public class ChargementParallele extends Thread{
         target.loadDestBar.setStringPainted(true);
         target.loadSiteBar.setMaximum(totalLineCount());//affichage
         lineCount=0;//affichage
-
         Scanner inputFile = new Scanner(file);
         String line = "";
-        if(!inputFile.hasNextLine()){throw new LoadExeption(target,lineCount+"");}
-        while (inputFile.hasNextLine()){
+        if(!inputFile.hasNextLine()){throw new LoadExeption(target,"le fichier"+file.getName()+" est vide");}//pre-condition
+        do{
             line=lineClear(inputFile.nextLine());
             target.loadDestBar.setMaximum(line.length());//affichage
             caractereCount=0;//affichage et programme
-
             String src="";
             char type;
             if(!line.matches("^[VRL],[a-zA-Z]*:([DAN],[0-9]*::[VRL],[a-zA-Z]*;)+;$")){
                 System.out.println(line);
-                throw new LoadExeption(target,lineCount+"");
-            }
-            System.out.println(line.matches("^[VRL],[a-zA-Z]*:([DAN],[0-9]*::[VRL],[a-zA-Z]*;)+;$"));
+                throw new LoadExeption(target,lineCount);
+            }//verification du format de la ligne
             ArrayList<String> goodLine = lineSeq(line);
-
             Site site=new Site(goodLine.get(0).substring(goodLine.get(0).indexOf(',')+1), goodLine.get(0).toCharArray()[0]);//creation site
             if(carte.containSite(site.getNom()))throw new LoadExeption(target,lineCount+"", site.getNom());
-            target.loadSiteBar.setString(site.getNom());//affichage
+            target.loadSiteBar.setString("site: "+site.getNom());//affichage
             target.loadDestBar.setMaximum(goodLine.size());//affichage
             for(int i=1;i<goodLine.size();i++){
                 String r = goodLine.get(i);
@@ -112,40 +108,41 @@ public class ChargementParallele extends Thread{
                 String dist = r.substring(2,r.indexOf(':'));
                 String dest = r.substring(r.lastIndexOf(',')+1);
                 target.loadDestBar.setValue(i+1);//affichage
-                target.loadDestBar.setString(dest);
+                target.loadDestBar.setString("route: "+dest);
                 site.ajouterRoute(t,Integer.parseInt(dist),dest);
-
-
                 sleep(10);
-
-            }
+            }//chargement route
             carte.ajouterSite(site);
             target.loadSiteBar.setValue(lineCount+1);//affichage
             lineCount++;//affichage
-        }//chargement ligne
+        }while (inputFile.hasNextLine());//chargement ligne
         verification();
     }
 
 
     void verification() throws VerificationExeption, InterruptedException {
+        target.loadSiteBar.setValue(0);target.loadDestBar.setValue(0);//reset des bars
+
         int i = 0;
         target.loadSiteBar.setMaximum(carte.getSites().size());
         for (Site s : carte.getSites()) {
-            target.loadSiteBar.setString(s.getNom());
+            target.loadSiteBar.setValue(i);
+            target.loadSiteBar.setString("carte/"+ s.getNom());
             int j=0;
             target.loadDestBar.setMaximum(s.getRoutes().size());
             for (Route r : s.getRoutes()) {
-                target.loadDestBar.setString(r.getDestination());
-                if (!carte.containSite(r.getDestination())) throw new VerificationExeption(target,r.getDestination());
-                j++;
                 target.loadDestBar.setValue(j);
-                sleep(10);
+                target.loadDestBar.setString("site/"+r.getDestination());
+                if (!carte.containSite(r.getDestination()))throw new VerificationExeption(target,r.getDestination());
+
+                    j++;
+                    sleep(10);
 
             }
-            i++;
 
-            target.loadSiteBar.setValue(i);
+            i++;
         }
+        target.loadSiteBar.setValue(0);target.loadDestBar.setValue(0);//reset des bars
     }
     private ArrayList<String> lineSeq(String line){
         ArrayList<String> seqline = new ArrayList<>();
