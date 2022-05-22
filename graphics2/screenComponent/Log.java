@@ -71,8 +71,6 @@ public class Log extends JPanel {
     }
 
 
-    //todo ajouter methode: ecrire un ensemble sites en fonction d'un format d'affichage
-
 
     public void clear(){
         downPanel.removeAll();

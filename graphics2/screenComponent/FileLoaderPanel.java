@@ -10,7 +10,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 public class FileLoaderPanel extends JPanel {
-    //todo faire l'affichage et la gestion parallèle
     Screen screen;
 
     ChargementParallele chargement;
