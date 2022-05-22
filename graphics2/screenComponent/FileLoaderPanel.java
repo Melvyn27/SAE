@@ -6,6 +6,7 @@ import SAE.map.Carte;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 
 public class FileLoaderPanel extends JPanel {
@@ -24,7 +25,8 @@ public class FileLoaderPanel extends JPanel {
     }
     private void init(){
         this.setLayout(new BorderLayout());
-
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("fichier de sauvergarde(*.csv)","csv"));
         fileChooser.setControlButtonsAreShown(false);
         fileChooser.setMultiSelectionEnabled(false);
         add(fileChooser, BorderLayout.CENTER);
