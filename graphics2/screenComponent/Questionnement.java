@@ -1,64 +1,50 @@
 package SAE.graphics2.screenComponent;
 
+import SAE.actionEvent.VoisinDe1;
 import SAE.graphics2.Screen;
+import SAE.graphics2.comboBoxModel.SiteComboBoxModel;
+import SAE.graphics2.screenComponent.questionComponent.VoisinDe;
+import SAE.map.Site;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *  /!\ le premier composant n'a pas 0 comme action
  */
-public class Questionnement extends JPanel {
+public class Questionnement extends JTabbedPane {
 //todo: reformer la jpanel en JTabPane
 
 Screen screen;
-    int choix;
-    ButtonGroup buttons=new ButtonGroup();
-    JScrollPane view;
+
+VoisinDe voisin;
 
 
     public Questionnement(Screen screen){
         this.screen=screen;
-        init();
+        voisin = new VoisinDe(screen);
+
+
+
+        addTab("voisin",voisin);
+        addTab("lol",new JPanel());
+        addTab("encore un test",new JPanel());
+        addTab("fun",new JPanel());
+
+
+
+
     }
 
-    void init(){
-        view=new JScrollPane(this);
-        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+    public void updateChoix(ArrayList<Site> s){
+        voisin.updateChoix(s);
+        /*
+        siteComboBoxModel1.resetChoix();
+        siteComboBoxModel1.addChoix(s);
+        siteComboBoxModel2.resetChoix();
+        siteComboBoxModel2.addChoix(s);
+         */
 
     }
-
-    public void addChoix(String name){
-        addChoix(name,null);
-    }
-    public void addChoix(String name,ActionListener action){
-        //fixme affichage a refaire
-        /** /!\ le premier composant n'a pas 0 comme action */
-        JButton b=new JButton(name);
-        buttons.add(b);
-        add(b);
-        b.addActionListener(action);
-        b.setActionCommand(""+getComponentCount());
-        setBounds(0,0,getWidth(),getComponentCount()*25);
-    }
-
-
-
-
-    public int getChoix(){
-        /** /!\ le premier composant n'a pas 0 comme action */
-        return choix;
-    }
-
-
-
-    public JScrollPane getView() {
-        return view;
-    }
-
-
-
-
-
-
 }
