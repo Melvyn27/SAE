@@ -100,7 +100,7 @@ public class Carte {
         }
         return v;
     }
-    private ArrayList<Site> delDupli(ArrayList<Site> sites){
+    public ArrayList<Site> delDupli(ArrayList<Site> sites){
         ArrayList<Site> newSite = new ArrayList<>();
         for(Site s : sites)if(!newSite.contains(s))newSite.add(s);
         return newSite;
