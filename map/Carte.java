@@ -1,5 +1,8 @@
 package SAE.map;
 
+import SAE.graphics2.Screen;
+import SAE.graphics2.format.LogFormat;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -10,7 +13,6 @@ public class Carte {
 
 
     public Carte(){
-
 
     }
     public void ajouterSite(char type, String nom){
@@ -102,21 +104,5 @@ public class Carte {
         ArrayList<Site> newSite = new ArrayList<>();
         for(Site s : sites)if(!newSite.contains(s))newSite.add(s);
         return newSite;
-    }
-
-
-    void listerLesSite(){
-        System.out.println("liste des villes:");
-        for (Site s: getSites()) {
-            if(s.getType()=='V') System.out.println("\t" + s.getNom());
-        }
-        System.out.println("liste des centres de loisir:");
-        for (Site s: getSites()) {
-            if(s.getType()=='L') System.out.println("\t" + s.getNom());
-        }
-        System.out.println("liste des restaurant:");
-        for (Site s: getSites()) {
-            if(s.getType()=='R') System.out.println("\t" + s.getNom());
-        }
     }
 }

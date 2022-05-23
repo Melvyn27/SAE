@@ -1,6 +1,6 @@
 package SAE.actionEvent;
 
-import SAE.graphics.Screen;
+import SAE.graphics2.Screen;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +16,6 @@ public class TestAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        target.getLog().addLine(target.getChoixSite1().getChoix()+" -> "+target.getChoixSite2().getChoix());
+        target.getLog().addLine("");
     }
 }

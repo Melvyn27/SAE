@@ -1,9 +1,6 @@
 package SAE.graphics.screen_component;
 
-import SAE.graphics.Screen;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
