@@ -39,7 +39,7 @@ public class ChargementParallele extends Thread{
     public void run() {
         setTargetMessage("chargement de "+file.getName());//indication de chargement sur le panel
         System.out.println("started");
-        screen.getFileChooserPanel().information.setForeground(new Color(0,0,0));
+        screen.getFileChooserPanel().information.setForeground(null);
         try {
             long milliTimeCount = System.currentTimeMillis();
             load();
@@ -49,7 +49,6 @@ public class ChargementParallele extends Thread{
             screen.getFileChooserPanel().loadDestBar.setStringPainted(false);
             System.out.println("ended");
             screen.getLog().addLine("file "+file.getName()+" loaded in: "+(System.currentTimeMillis()-milliTimeCount)+" ms");
-            screen.getLog().addLines(carte.getSites());
         } catch (LoadExeption e) {
             //e.printStackTrace();
 
@@ -115,7 +114,9 @@ public class ChargementParallele extends Thread{
                 screen.getFileChooserPanel().loadDestBar.setValue(i+1);//affichage
                 screen.getFileChooserPanel().loadDestBar.setString("route: "+dest);
                 site.ajouterRoute(t,Integer.parseInt(dist),dest);
+
                 sleep(10);
+
             }//chargement route
             carte.ajouterSite(site);
             screen.getFileChooserPanel().loadSiteBar.setValue(lineCount+1);//affichage
@@ -140,8 +141,8 @@ public class ChargementParallele extends Thread{
                 screen.getFileChooserPanel().loadDestBar.setValue(j);
                 screen.getFileChooserPanel().loadDestBar.setString("site/"+r.getDestination());
                 if (!carte.containSite(r.getDestination()))throw new VerificationExeption(screen.getFileChooserPanel(),r.getDestination());
-
                     j++;
+
                     sleep(10);
 
             }
