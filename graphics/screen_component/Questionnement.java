@@ -1,6 +1,7 @@
 package SAE.graphics.screen_component;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 /**
  *  /!\ le premier composant n'a pas 0 comme action
@@ -8,19 +9,25 @@ import java.awt.event.ActionListener;
 public class Questionnement extends JPanel {
 
 
-
+    JLabel legend;
     int choix;
-    ButtonGroup buttons=new ButtonGroup();
     JScrollPane view;
+    JPanel global = new JPanel();
 
 
     public Questionnement(){
         init();
     }
+    public Questionnement(String legend){
+        this.legend.setText(legend);
+        init();
+    }
 
     void init(){
-        view=new JScrollPane(this);
-        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        add(legend, BorderLayout.NORTH);
+        add(global,BorderLayout.CENTER);
+        view=new JScrollPane(global);
+        global.setLayout(new BoxLayout(global,BoxLayout.Y_AXIS));
 
     }
 
@@ -28,33 +35,14 @@ public class Questionnement extends JPanel {
         addChoix(name,null);
     }
     public void addChoix(String name,ActionListener action){
-        //fixme affichage a refaire
-        /** /!\ le premier composant n'a pas 0 comme action */
         JButton b=new JButton(name);
-        buttons.add(b);
-        add(b);
         b.addActionListener(action);
-        b.setActionCommand(""+getComponentCount());
-        setBounds(0,0,getWidth(),getComponentCount()*25);
+        global.add(b);
+        revalidate();
+        repaint();
     }
 
-
-
-
-    public int getChoix(){
-        /** /!\ le premier composant n'a pas 0 comme action */
-        return choix;
+    public void setLegend(String legend) {
+        this.legend.setText(legend);
     }
-
-
-
-    public JScrollPane getView() {
-        return view;
-    }
-
-
-
-
-
-
 }
