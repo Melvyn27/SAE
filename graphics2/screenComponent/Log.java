@@ -6,11 +6,13 @@ import SAE.graphics2.format.LogFormat;
 import SAE.map.Site;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Log extends JPanel {
-    LogFormat format = LogFormat.all;
+    public LogFormat format = LogFormat.all;
 
     JPanel downPanel = new JPanel();
     JPanel upPanel = new JPanel();
@@ -30,6 +32,8 @@ public class Log extends JPanel {
 
 
     void init(){
+        downPanel.setBorder(new LineBorder(new Color(0,0,0)));
+
         setLayout(new BorderLayout());
         downPanel.setLayout(new BoxLayout(downPanel,BoxLayout.Y_AXIS));
         add(view,BorderLayout.CENTER);
@@ -43,12 +47,10 @@ public class Log extends JPanel {
         upPanel.add(clear);
 
         JButton test = new JButton("test");
-        test.addActionListener(t->addLine("test"));
+        test.addActionListener(null);
         upPanel.add(test);
 
-        JButton testsite = new JButton("test site");
-        testsite.addActionListener(new ClasserLesVilles(screen));
-        upPanel.add(testsite);
+
 
 
     }
@@ -58,12 +60,13 @@ public class Log extends JPanel {
         //fixme bug de scrollBar
         bar.setValue(bar.getMaximum());
         revalidate();
+
     }
     public void addLine(Site site){
         switch (format){
             case all -> addLine(site.toString());
-            case reduce -> addLine(site.getNom());
             case simple -> addLine(site.getNom());
+
         }
     }
     public void addLines(ArrayList<Site> sites){
