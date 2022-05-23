@@ -21,7 +21,6 @@ public class ClasserLesVilles extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         Carte carte = screen.getCarte();
 
-        screen.getLog().setFormat(LogFormat.reduce);
         screen.getLog().addLine("liste des villes:");
         for (Site s : carte.getSites()) {
             if (s.getType() == 'V') screen.getLog().addLine(s);
