@@ -25,10 +25,13 @@ public class FileLoaderPanel extends JPanel {
     private void init(){
         this.setLayout(new BorderLayout());
         fileChooser.setAcceptAllFileFilterUsed(false);
-        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("fichier de sauvergarde(*.csv)","csv"));
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("fichier de sauvergarde(.csv,.txt)","csv","txt"));
         fileChooser.setControlButtonsAreShown(false);
         fileChooser.setMultiSelectionEnabled(false);
         add(fileChooser, BorderLayout.CENTER);
+
+        loadSiteBar.setForeground(Color.BLUE);
+        loadDestBar.setForeground(Color.green);
         JPanel p0 = new JPanel();
         JPanel p1 = new JPanel();
         JPanel p2 = new JPanel();
@@ -76,6 +79,7 @@ public class FileLoaderPanel extends JPanel {
 
     public void confirmeCarte(Carte newCarte){
         screen.setCarte(newCarte);
+        screen.setChoix();
     }
     public Screen getScreen(){
         return screen;
