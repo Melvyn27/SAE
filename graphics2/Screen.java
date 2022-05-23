@@ -25,14 +25,15 @@ public class Screen extends JFrame {
     //----
     Log log = new Log(this);
     FileLoaderPanel fileChooserPanel = new FileLoaderPanel(this);
-    Questionnement questionnement = setQuestion();
+    Questionnement questionnement = new Questionnement(this);
     SettingsPanel settings = new SettingsPanel(this);
     //todo: ajouter le panneau de questionnement
     //GraphPanel graph = new GraphPanel();
+
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
     SiteComboBoxModel siteComboBoxModel2 = new SiteComboBoxModel();
     JComboBox<String> choixSite1 = new JComboBox<>(siteComboBoxModel1);
-    JComboBox<String> choixSite2 = new JComboBox<>(siteComboBoxModel2);
+    JComboBox<String> choixSite2 = new JComboBox<>(siteComboBoxModel1);
 
 
     JPanel leftPanel = new JPanel();
@@ -59,45 +60,27 @@ public class Screen extends JFrame {
 
         JPanel p1 = new JPanel();//top panel of leftPanel
         p1.setLayout(new BoxLayout(p1,BoxLayout.X_AXIS));
-        p1.add(choixSite1);
-        p1.add(choixSite2);
+        //p1.add(choixSite1);
+        //p1.add(choixSite2);
         leftPanel.setPreferredSize(new Dimension(200,0));
         leftPanel.setMinimumSize(new Dimension(200,0));
         leftPanel.setLayout(new BorderLayout());
         leftPanel.add(p1,BorderLayout.NORTH);
         leftPanel.add(questionnement,BorderLayout.CENTER);
 
-
-
-
         setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftPanel,rightPanel));
     }
 
     public void setChoix(ArrayList<Site> s){
-        siteComboBoxModel1.resetChoix();
-        siteComboBoxModel1.addChoix(s);
-        siteComboBoxModel2.resetChoix();
-        siteComboBoxModel2.addChoix(s);
+        questionnement.updateChoix(s);
+
         revalidate();
         repaint();
     }
     public void setChoix(){
         setChoix(carte.getSites());
     }
-    public Questionnement setQuestion(){
-        Questionnement newQuestion = new Questionnement(this);
-        newQuestion.addChoix("lister les sites",new ClasserLesVilles(this));
-        newQuestion.addChoix("lister les voisin de",new VoisinDe1(this));
-        newQuestion.addChoix("lister les voisin de",l->carte.voisinDe(getSelectedSite1(),1));
 
-
-
-
-
-
-
-        return newQuestion;
-    }
 
 
 
