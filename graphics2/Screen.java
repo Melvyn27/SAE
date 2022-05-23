@@ -1,8 +1,12 @@
 package SAE.graphics2;
 
+import SAE.actionEvent.ClasserLesVilles;
+import SAE.actionEvent.VoisinDe1;
 import SAE.graphics2.comboBoxModel.SiteComboBoxModel;
 import SAE.graphics2.screenComponent.FileLoaderPanel;
 import SAE.graphics2.screenComponent.Log;
+import SAE.graphics2.screenComponent.Questionnement;
+import SAE.graphics2.screenComponent.SettingsPanel;
 import SAE.map.Carte;
 import SAE.map.Site;
 
@@ -21,6 +25,9 @@ public class Screen extends JFrame {
     //----
     Log log = new Log(this);
     FileLoaderPanel fileChooserPanel = new FileLoaderPanel(this);
+    Questionnement questionnement = setQuestion();
+    SettingsPanel settings = new SettingsPanel(this);
+    //todo: ajouter le panneau de questionnement
     //GraphPanel graph = new GraphPanel();
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
     SiteComboBoxModel siteComboBoxModel2 = new SiteComboBoxModel();
@@ -37,26 +44,33 @@ public class Screen extends JFrame {
         setUp();
     }
     private void setUp(){
+
+
         setDefaultCloseOperation(3);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
     }
     private void init(){
+
         rightPanel.addTab("log",null,log,"afficher les resultats");
         rightPanel.addTab("file",null,fileChooserPanel,"choose a file to load");
+        rightPanel.addTab("settings",settings);
 
-        JPanel p1 = new JPanel(new FlowLayout());//top panel of leftPanel
+        JPanel p1 = new JPanel();//top panel of leftPanel
+        p1.setLayout(new BoxLayout(p1,BoxLayout.X_AXIS));
         p1.add(choixSite1);
         p1.add(choixSite2);
-        leftPanel.setLayout(new GridLayout(2,1));
-        leftPanel.add(p1);
+        leftPanel.setPreferredSize(new Dimension(200,0));
+        leftPanel.setMinimumSize(new Dimension(200,0));
+        leftPanel.setLayout(new BorderLayout());
+        leftPanel.add(p1,BorderLayout.NORTH);
+        leftPanel.add(questionnement,BorderLayout.CENTER);
 
 
 
 
-
-        add(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftPanel,rightPanel));
+        setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftPanel,rightPanel));
     }
 
     public void setChoix(ArrayList<Site> s){
@@ -64,11 +78,31 @@ public class Screen extends JFrame {
         siteComboBoxModel1.addChoix(s);
         siteComboBoxModel2.resetChoix();
         siteComboBoxModel2.addChoix(s);
+        revalidate();
+        repaint();
+    }
+    public void setChoix(){
+        setChoix(carte.getSites());
+    }
+    public Questionnement setQuestion(){
+        Questionnement newQuestion = new Questionnement(this);
+        newQuestion.addChoix("lister les sites",new ClasserLesVilles(this));
+        newQuestion.addChoix("lister les voisin de",new VoisinDe1(this));
+        newQuestion.addChoix("lister les voisin de",l->carte.voisinDe(getSelectedSite1(),1));
+
+
+
+
+
+
+
+        return newQuestion;
     }
 
 
+
     /**
-     * sere a rafraichir le graph
+     * serre a rafraichir le graph
      */
     public void update(){
 
@@ -103,12 +137,19 @@ public class Screen extends JFrame {
     public JComboBox<String> getChoixSite1() {
         return choixSite1;
     }
+    public String getSelectedSite1(){
+        return (String)siteComboBoxModel1.getSelectedItem();
+    }
+    public String getSelectedSite2(){
+        return (String)siteComboBoxModel2.getSelectedItem();
+    }
 
     public JComboBox<String> getChoixSite2() {
         return choixSite2;
     }
 
     public static void main(String[] args) {
+
         new Screen();
     }
 }
