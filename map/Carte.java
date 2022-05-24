@@ -81,24 +81,10 @@ public class Carte {
         }
         return rtn;
     }
-    public ArrayList<Site> voisinDe(String name,int jump){
-        resetGraph();
-        return delDupli(voisinDe(sites.get(name),jump));
-    }
-    private ArrayList<Site> voisinDe(Site site,int jump) {
-        ArrayList<Site> v = new ArrayList<>();
-        if(site!=null){
-            if(jump!=0){
-                for(String s:site.getVoisin()){
-                    site.getRoute(s).setSelectionné(true);
-                    v.addAll(voisinDe(s,jump-1));
-                }
-            }else{
-                v.add(site);
-                selectSite(site);
-            }
-        }
-        return v;
+    public ArrayList<Route> getRoute(){
+        ArrayList<Route> rs =new ArrayList<>();
+        for(Site s:getSites())rs.addAll(s.getRoutes());
+        return rs;
     }
     public ArrayList<Site> delDupli(ArrayList<Site> sites){
         ArrayList<Site> newSite = new ArrayList<>();

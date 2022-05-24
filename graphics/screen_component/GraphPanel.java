@@ -1,10 +1,11 @@
 package SAE.graphics.screen_component;
 
+import SAE.graphics2.format.DisplayStyle;
 import SAE.map.Carte;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import static SAE.graphics.screen_component.DisplayStyle.*;
+
+import static SAE.graphics2.format.DisplayStyle.*;
 
 public class GraphPanel extends JPanel {
     Carte carte;

@@ -1,17 +1,26 @@
 package SAE.map;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Site {
     String nom;
     char type;
     ArrayList<Route> routes = new ArrayList<>();
-    boolean selectionné=false;
-    public Point coordonnée=new Point(0,0);
+    boolean selectionné=true;
+
+    boolean rechercher=false;
+
+    public Point coordonnée=new Point(Math.abs(new Random().nextInt()%100),Math.abs(new Random().nextInt()%100));
 
     public Site(String nom, char type) {
         this.nom = nom;
         this.type = type;
+    }
+    public Site(String nom, char type,Point coordonnée) {
+        this.nom = nom;
+        this.type = type;
+        this.coordonnée=coordonnée;
     }
 
     public void ajouterRoute(char type, int longueur, String destination){
@@ -36,9 +45,17 @@ public class Site {
     public boolean isSelectionné() {
         return selectionné;
     }
-
     public void setSelectionné(boolean selectionné) {
         this.selectionné = selectionné;
+    }
+
+    public boolean isRechercher() {
+        return rechercher;
+    }
+
+    public void setRechercher(boolean rechercher) {
+        this.rechercher = rechercher;
+        selectionné=true;
     }
 
     public void setCoordonnée(Point coordonnée) {

@@ -1,4 +1,4 @@
-package SAE.graphics.screen_component;
+package SAE.graphics2.format;
 
 public enum DisplayStyle {
     Reduce,

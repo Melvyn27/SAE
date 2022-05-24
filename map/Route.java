@@ -6,7 +6,7 @@ public class Route {
     int longueur;
     String destination;
     String source;
-    boolean selectionné=false;
+    boolean selectionné=true;
 
 
     public Route(char type, int longueur, String destination,String source) {
