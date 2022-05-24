@@ -3,6 +3,7 @@ package SAE.graphics2.screenComponent;
 import SAE.actionEvent.VoisinDe1;
 import SAE.graphics2.Screen;
 import SAE.graphics2.comboBoxModel.SiteComboBoxModel;
+import SAE.graphics2.screenComponent.questionComponent.ListerLesSite;
 import SAE.graphics2.screenComponent.questionComponent.VoisinDe;
 import SAE.map.Site;
 
@@ -26,9 +27,8 @@ VoisinDe voisin;
         voisin = new VoisinDe(screen);
 
 
-
         addTab("voisin",voisin);
-        addTab("lol",new JPanel());
+        addTab("lister",new ListerLesSite(screen));
         addTab("encore un test",new JPanel());
         addTab("fun",new JPanel());
 
