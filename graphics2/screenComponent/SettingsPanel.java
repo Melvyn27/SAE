@@ -1,10 +1,10 @@
 package SAE.graphics2.screenComponent;
 
+import SAE.graphics2.format.DisplayStyle;
 import SAE.graphics2.Screen;
 import SAE.graphics2.format.LogFormat;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class SettingsPanel extends JPanel {
@@ -22,14 +22,21 @@ public class SettingsPanel extends JPanel {
 
 
         JComboBox<LogFormat> choosFormat= new JComboBox<>();
-        choosFormat.addItem(LogFormat.simple);
-        choosFormat.addItem(LogFormat.none);
-        choosFormat.addItem(LogFormat.all);
-        choosFormat.addActionListener(l->screen.getLog().setFormat((LogFormat)choosFormat.getSelectedItem()));
-        choosFormat.setToolTipText("/!\\ 'all' peut poser des problème d'affichage");
-        //add(choosFormat);
+        {
+            for(int i=0;i<LogFormat.values().length;i++)choosFormat.addItem(LogFormat.values()[i]);
+            choosFormat.addActionListener(l -> screen.getLog().setFormat((LogFormat) choosFormat.getSelectedItem()));
+            choosFormat.setToolTipText("/!\\ 'all' peut poser des problème d'affichage");
+        }
+        addSettings("format d'affichage des resultat",choosFormat);
 
-        addSettings("format d'affichage",choosFormat);
+        JComboBox<DisplayStyle> graphStyle = new JComboBox<>();
+        {
+            for(int i=0;i<DisplayStyle.values().length;i++)graphStyle.addItem(DisplayStyle.values()[i]);
+            graphStyle.addActionListener(l->screen.getGraphPanel().setStyle((DisplayStyle) graphStyle.getSelectedItem()));
+        }
+        addSettings("format d'affichage du Graphe",graphStyle);
+
+
         addSettings("test",new JButton("test"));
 
 
