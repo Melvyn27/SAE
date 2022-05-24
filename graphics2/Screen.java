@@ -1,12 +1,7 @@
 package SAE.graphics2;
 
-import SAE.actionEvent.ClasserLesVilles;
-import SAE.actionEvent.VoisinDe1;
 import SAE.graphics2.comboBoxModel.SiteComboBoxModel;
-import SAE.graphics2.screenComponent.FileLoaderPanel;
-import SAE.graphics2.screenComponent.Log;
-import SAE.graphics2.screenComponent.Questionnement;
-import SAE.graphics2.screenComponent.SettingsPanel;
+import SAE.graphics2.screenComponent.*;
 import SAE.map.Carte;
 import SAE.map.Site;
 
@@ -28,7 +23,7 @@ public class Screen extends JFrame {
     Questionnement questionnement = new Questionnement(this);
     SettingsPanel settings = new SettingsPanel(this);
     //todo: ajouter le panneau de questionnement
-    //GraphPanel graph = new GraphPanel();
+    GraphPanel graphPanel = new GraphPanel(this);
 
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
     SiteComboBoxModel siteComboBoxModel2 = new SiteComboBoxModel();
@@ -56,6 +51,7 @@ public class Screen extends JFrame {
 
         rightPanel.addTab("log",null,log,"afficher les resultats");
         rightPanel.addTab("file",null,fileChooserPanel,"choose a file to load");
+        rightPanel.addTab("graphe", graphPanel);
         rightPanel.addTab("settings",settings);
 
         JPanel p1 = new JPanel();//top panel of leftPanel
@@ -86,20 +82,24 @@ public class Screen extends JFrame {
      */
     public void update(){
         setChoix(carte.getSites());
-
+        graphPanel.revalidate();
+        graphPanel.repaint();
+        repaint();
     }
 
     public Carte getCarte() {
         return carte;
     }
-
     public void setCarte(Carte carte) {
         this.carte = carte;
+    }
+
+    public GraphPanel getGraphPanel() {
+        return graphPanel;
     }
     public Log getLog(){
         return log;
     }
-
     public FileLoaderPanel getFileChooserPanel() {
         return fileChooserPanel;
     }
