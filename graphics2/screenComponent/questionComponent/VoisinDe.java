@@ -33,14 +33,15 @@ public class VoisinDe extends JPanel {
 
         global.add(choixSite1);
 
-        JPanel p2 = new JPanel(new FlowLayout());
+        JPanel p2 = new JPanel();
         p2.add(new JLabel("distance: "));
         p2.add(dist);
         global.add(p2);
 
         JPanel p3 = new JPanel();
         p3.add(aff);
-        p3.add(new JLabel("afficher tout"));
+        aff.setText("afficher tout");
+        //p3.add(new JLabel());
         global.add(p3);
 
         JButton b =new JButton("trouver les voisin");
@@ -52,12 +53,18 @@ public class VoisinDe extends JPanel {
 
     public void voisinDe(){
         int dist = Integer.parseInt( this.dist.getText());
+        String site = (String)siteComboBoxModel1.getSelectedItem();
+        if(site!=null) {
+            screen.getCarte().resetGraph();
 
-        screen.getCarte().resetGraph();
-        ArrayList<Site> res = screen.getCarte().delDupli(voisinDe((String)siteComboBoxModel1.getSelectedItem(),dist));
+            ArrayList<Site> res = screen.getCarte().delDupli(voisinDe(site, dist));
+            //screen.getLog().addLines(res);
 
+            screen.getLog().addLine("voisins de " + site+" a "+dist+" saut: ");
+            for (Site s : res) screen.getLog().addLine("    " + s.getNom());
+            screen.getLog().addLine(" ");
+        }
 
-        screen.getLog().addLines(res);
     }
 
     private ArrayList<Site> voisinDe(String name,int jump){
