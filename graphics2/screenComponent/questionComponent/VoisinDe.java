@@ -13,10 +13,14 @@ public class VoisinDe extends JPanel {
 
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
     JComboBox<String> choixSite1 = new JComboBox<>(siteComboBoxModel1);
+
+    JCheckBox aff = new JCheckBox();
+
+
     JTextField dist = new JTextField(3);
     public VoisinDe(Screen screen){
         this.screen=screen;
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        //setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         init();
     }
     public void updateChoix(ArrayList<Site> s){
@@ -24,15 +28,61 @@ public class VoisinDe extends JPanel {
         siteComboBoxModel1.addChoix(s);
     }
     void init(){//fixme: bug d'affichage
-        JPanel p1 = new JPanel();
-        p1.add(choixSite1);
-        add(p1);
+        JPanel global = new JPanel(new GridLayout(0,1,1,1));
+
+
+        global.add(choixSite1);
+
         JPanel p2 = new JPanel(new FlowLayout());
         p2.add(new JLabel("distance: "));
         p2.add(dist);
-        add(p2);
-        add(new JButton("start"));
+        global.add(p2);
+
+        JPanel p3 = new JPanel();
+        p3.add(aff);
+        p3.add(new JLabel("afficher tout"));
+        global.add(p3);
+
+        JButton b =new JButton("trouver les voisin");
+        b.addActionListener(v->voisinDe());
+        global.add(b);
+
+        add(global);
     }
+
+    public void voisinDe(){
+        int dist = Integer.parseInt( this.dist.getText());
+
+        screen.getCarte().resetGraph();
+        ArrayList<Site> res = screen.getCarte().delDupli(voisinDe((String)siteComboBoxModel1.getSelectedItem(),dist));
+
+
+        screen.getLog().addLines(res);
+    }
+
+    private ArrayList<Site> voisinDe(String name,int jump){
+
+
+        return voisinDe(screen.getCarte().sites.get(name),jump);
+    }
+    private ArrayList<Site> voisinDe(Site site,int jump) {
+        ArrayList<Site> v = new ArrayList<>();
+        if(site!=null){
+            if(jump!=0){
+                for(String s:site.getVoisin()){
+                    site.getRoute(s).setSelectionné(true);
+                    if(aff.isSelected())v.add(site);
+                    v.addAll(voisinDe(s,jump-1));
+                }
+            }else{
+                v.add(site);
+                screen.getCarte().selectSite(site);
+            }
+        }
+        return v;
+    }
+
+
 
 
 
