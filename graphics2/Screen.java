@@ -10,10 +10,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Screen extends JFrame {
-    //todo ajout d'un panneau 'Settings': but potentiel changer l'affichage des logs ou du graph
-
-
-
 
     Carte carte = new Carte();
 
@@ -22,7 +18,7 @@ public class Screen extends JFrame {
     FileLoaderPanel fileChooserPanel = new FileLoaderPanel(this);
     Questionnement questionnement = new Questionnement(this);
     SettingsPanel settings = new SettingsPanel(this);
-    //todo: ajouter le panneau de questionnement
+
     GraphPanel graphPanel = new GraphPanel(this);
 
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
