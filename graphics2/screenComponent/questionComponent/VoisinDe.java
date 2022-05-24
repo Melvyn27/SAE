@@ -36,6 +36,7 @@ public class VoisinDe extends JPanel {
         JPanel p2 = new JPanel();
         p2.add(new JLabel("distance: "));
         p2.add(dist);
+        dist.setToolTipText("conseil: ne depasse pas 10 stp");
         global.add(p2);
 
         JPanel p3 = new JPanel();
@@ -56,7 +57,7 @@ public class VoisinDe extends JPanel {
         String site = (String)siteComboBoxModel1.getSelectedItem();
         if(site!=null) {
             screen.getCarte().resetGraph();
-
+            screen.getCarte().sites.get(site).setRechercher(true);
             ArrayList<Site> res = screen.getCarte().delDupli(voisinDe(site, dist));
             //screen.getLog().addLines(res);
 
@@ -69,7 +70,6 @@ public class VoisinDe extends JPanel {
 
     private ArrayList<Site> voisinDe(String name,int jump){
 
-
         return voisinDe(screen.getCarte().sites.get(name),jump);
     }
     private ArrayList<Site> voisinDe(Site site,int jump) {
@@ -78,7 +78,7 @@ public class VoisinDe extends JPanel {
             if(jump!=0){
                 for(String s:site.getVoisin()){
                     site.getRoute(s).setSelectionné(true);
-                    if(aff.isSelected())v.add(site);
+                    if(aff.isSelected()){v.add(site);site.setSelectionné(true);}
                     v.addAll(voisinDe(s,jump-1));
                 }
             }else{
