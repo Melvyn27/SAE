@@ -77,9 +77,6 @@ public class Screen extends JFrame {
         revalidate();
         repaint();
     }
-    public void setChoix(){
-        setChoix(carte.getSites());
-    }
 
 
 
@@ -88,9 +85,7 @@ public class Screen extends JFrame {
      * serre a rafraichir le graph
      */
     public void update(){
-
-
-
+        setChoix(carte.getSites());
 
     }
 

@@ -79,7 +79,7 @@ public class FileLoaderPanel extends JPanel {
 
     public void confirmeCarte(Carte newCarte){
         screen.setCarte(newCarte);
-        screen.setChoix();
+        screen.update();
     }
     public Screen getScreen(){
         return screen;
