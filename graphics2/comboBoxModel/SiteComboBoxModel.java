@@ -11,6 +11,10 @@ public class SiteComboBoxModel extends AbstractListModel<String> implements Comb
 ArrayList<String> sites = new ArrayList<>();
 String selectionné;
 
+    public ArrayList<String> getSites() {
+        return sites;
+    }
+
     public void addChoix(String name){
         System.out.println(name);
         sites.add(name);
