@@ -25,7 +25,7 @@ public class VoisinDe extends JPanel {
     }
     void init(){//fixme: bug d'affichage
         JPanel p1 = new JPanel();
-        p1.add(choixSite1);
+        add(choixSite1);
         add(p1);
         JPanel p2 = new JPanel(new FlowLayout());
         p2.add(new JLabel("distance: "));
