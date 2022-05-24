@@ -1,14 +1,11 @@
 package SAE.graphics2.screenComponent;
 
-import SAE.actionEvent.VoisinDe1;
 import SAE.graphics2.Screen;
-import SAE.graphics2.comboBoxModel.SiteComboBoxModel;
 import SAE.graphics2.screenComponent.questionComponent.ListerLesSite;
 import SAE.graphics2.screenComponent.questionComponent.VoisinDe;
 import SAE.map.Site;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**

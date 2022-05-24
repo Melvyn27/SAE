@@ -1,13 +1,11 @@
 package SAE.graphics2.screenComponent;
 
-import SAE.actionEvent.ClasserLesVilles;
 import SAE.graphics2.Screen;
 import SAE.graphics2.format.LogFormat;
 import SAE.map.Site;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.util.ArrayList;
 
