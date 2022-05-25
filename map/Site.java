@@ -55,7 +55,7 @@ public class Site {
 
     public void setRechercher(boolean rechercher) {
         this.rechercher = rechercher;
-        selectionné=true;
+        selectionné=rechercher;
     }
 
     public void setCoordonnée(Point coordonnée) {

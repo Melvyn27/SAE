@@ -38,6 +38,7 @@ public class GraphPanel extends JPanel {
         displayGraphics=(Graphics2D) g;
         carte = screen.getCarte();
         if(carte!=null)draw();
+        repaint();
     }
 
     public void draw(){
@@ -62,21 +63,21 @@ public class GraphPanel extends JPanel {
 
 
     void drawSite(Site s){
-        if(!s.isSelectionné())return;
+        if(s.isSelectionné()) {
 
 
-        Point p = s.getCoordonnée();
-        int x =(int) ((p.getX()/100.0)*this.getWidth())-pointSize/2;
-        int y =(int) ((p.getY()/100.0)*this.getHeight())-pointSize/2;
+            Point p = s.getCoordonnée();
+            int x = (int) ((p.getX() / 100.0) * this.getWidth()) - pointSize / 2;
+            int y = (int) ((p.getY() / 100.0) * this.getHeight()) - pointSize / 2;
 
-        if(s.getType()=='V')displayGraphics.setColor(Color.red);
-        if(s.getType()=='L')displayGraphics.setColor(Color.GREEN);
-        if(s.getType()=='R')displayGraphics.setColor(Color.blue);
-        if(s.isRechercher())displayGraphics.setColor(Color.gray);
+            if (s.getType() == 'V') displayGraphics.setColor(Color.red);
+            if (s.getType() == 'L') displayGraphics.setColor(Color.GREEN);
+            if (s.getType() == 'R') displayGraphics.setColor(Color.blue);
+            if (s.isRechercher()) displayGraphics.setColor(Color.gray);
 
-        displayGraphics.setStroke(new BasicStroke(1));
-        displayGraphics.fillOval(x,y,pointSize,pointSize);
-
+            displayGraphics.setStroke(new BasicStroke(1));
+            displayGraphics.fillOval(x, y, pointSize, pointSize);
+        }
     }
     void drawRoute(Route r){
         if(carte.sites.get(r.getSource()).isSelectionné() && carte.sites.get(r.getDestination()).isSelectionné() && r.isSelectionné()) {

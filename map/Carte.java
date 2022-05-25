@@ -65,6 +65,7 @@ public class Carte {
     public void resetGraph(){
         for(Site s : getSites()){
             s.setSelectionné(false);
+            s.setRechercher(false);
             for(Route r:s.getRoutes())r.setSelectionné(false);
         }
     }
