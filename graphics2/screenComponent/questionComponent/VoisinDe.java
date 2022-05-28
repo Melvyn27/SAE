@@ -13,6 +13,7 @@ public class VoisinDe extends JPanel {
 
     SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
     JComboBox<String> choixSite1 = new JComboBox<>(siteComboBoxModel1);
+    JComboBox<String> filtre = new JComboBox<>();
 
     JCheckBox aff = new JCheckBox();
 
@@ -30,6 +31,11 @@ public class VoisinDe extends JPanel {
     void init(){//fixme: bug d'affichage
         JPanel global = new JPanel(new GridLayout(0,1,1,1));
 
+        filtre.addItem("tout");
+        filtre.addItem("villes");
+        filtre.addItem("restaurants");
+        filtre.addItem("loisires");
+
 
         global.add(choixSite1);
 
@@ -41,9 +47,15 @@ public class VoisinDe extends JPanel {
 
         JPanel p3 = new JPanel();
         p3.add(aff);
-        aff.setText("afficher tout");
+        aff.setText("afficher tout les points(Graph)");
         //p3.add(new JLabel());
         global.add(p3);
+        JPanel p4 = new JPanel();
+        JLabel l4 = new JLabel("filtre");
+        filtre.setToolTipText("filtre l'affichage des sites pour les Logs");
+        p4.add(l4);
+        p4.add(filtre);
+        global.add(p4);
 
         JButton b =new JButton("trouver les voisin");
         b.addActionListener(v->voisinDe());
@@ -58,7 +70,7 @@ public class VoisinDe extends JPanel {
         if(site!=null) {
             screen.getCarte().resetGraph();
             screen.getCarte().sites.get(site).setRechercher(true);
-            ArrayList<Site> res = screen.getCarte().delDupli(voisinDe(site, dist));
+            ArrayList<Site> res = filtres(screen.getCarte().delDupli(voisinDe(site, dist)));
             //screen.getLog().addLines(res);
 
             screen.getLog().addLine("voisins de " + site+" a "+dist+" saut: ");
@@ -66,6 +78,21 @@ public class VoisinDe extends JPanel {
             screen.getLog().addLine(" ");
         }
 
+    }
+
+
+    private ArrayList<Site> filtres(ArrayList<Site> sites){
+        ArrayList<Site> newSites = new ArrayList<>();
+        char f=' ';
+        if(filtre.getSelectedItem()=="villes"){f='V';
+            System.out.println("ville");}
+        if(filtre.getSelectedItem()=="restaurants")f='R';
+        if(filtre.getSelectedItem()=="loisires")f='L';
+        if(filtre.getSelectedItem()=="All")return sites;
+
+        for(Site s:sites)if(s.getType()==f)newSites.add(s);
+
+        return newSites;
     }
 
     private ArrayList<Site> voisinDe(String name,int jump){
