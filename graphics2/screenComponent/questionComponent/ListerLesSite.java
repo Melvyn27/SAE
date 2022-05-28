@@ -19,13 +19,13 @@ public class ListerLesSite extends JPanel {
 
     void init(){
         JButton v = new JButton("lister les ville");
-        v.addActionListener(a->listerLesVilles());
+        v.addActionListener(a->{screen.getCarte().resetGraph();listerLesVilles();});
         JButton r = new JButton("lister les restaurants");
-        r.addActionListener(a->listerLesRestaurant());
+        r.addActionListener(a->{screen.getCarte().resetGraph();listerLesRestaurant();});
         JButton l = new JButton("lister les loisirs");
-        l.addActionListener(a->listerLesLoisir());
+        l.addActionListener(a->{screen.getCarte().resetGraph();listerLesLoisir();});
         JButton t = new JButton("tout afficher");
-        t.addActionListener(a->info.setText(listerLesVilles()+listerLesRestaurant()+listerLesLoisir()+" sites au total"));
+        t.addActionListener(a->{info.setText(listerLesVilles()+listerLesRestaurant()+listerLesLoisir()+" sites au total");});
 
         add(v);
         add(r);
@@ -41,6 +41,8 @@ public class ListerLesSite extends JPanel {
 
 
     int listerLesVilles(){
+
+
         int t = 0;
         ArrayList<Site> sites = new ArrayList<>();
 
@@ -48,7 +50,7 @@ public class ListerLesSite extends JPanel {
             if(s.getType()=='V'){sites.add(s);t++;}
         }
         screen.getLog().addLine("liste des villes: ");
-        for (Site s : sites) screen.getLog().addLine("    " + s.getNom());
+        for (Site s : sites) {screen.getLog().addLine("    " + s.getNom());s.setSelectionné(true);}
         screen.getLog().addLine(" ");
 
         info.setText(t+" villes au total");
@@ -56,6 +58,7 @@ public class ListerLesSite extends JPanel {
         return t;
     }
     int listerLesLoisir(){
+
         int t = 0;
         ArrayList<Site> sites = new ArrayList<>();
 
@@ -63,7 +66,7 @@ public class ListerLesSite extends JPanel {
             if(s.getType()=='L'){sites.add(s);t++;}
         }
         screen.getLog().addLine("liste des loisirs: ");
-        for (Site s : sites) screen.getLog().addLine("    " + s.getNom());
+        for (Site s : sites){screen.getLog().addLine("    " + s.getNom());s.setSelectionné(true);}
         screen.getLog().addLine(" ");
 
         info.setText(t+" loisirs au total");
@@ -71,6 +74,7 @@ public class ListerLesSite extends JPanel {
         return t;
     }
     int listerLesRestaurant(){
+
         int t = 0;
         ArrayList<Site> sites = new ArrayList<>();
 
@@ -78,7 +82,7 @@ public class ListerLesSite extends JPanel {
             if(s.getType()=='R'){sites.add(s);t++;}
         }
         screen.getLog().addLine("liste des restaurants: ");
-        for (Site s : sites) screen.getLog().addLine("    " + s.getNom());
+        for (Site s : sites) {screen.getLog().addLine("    " + s.getNom());s.setSelectionné(true);}
         screen.getLog().addLine(" ");
 
         info.setText(t+" restaurants au total");
