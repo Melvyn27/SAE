@@ -47,7 +47,7 @@ public class VoisinDe extends JPanel {
 
         JPanel p3 = new JPanel();
         p3.add(aff);
-        aff.setText("afficher tout les points(Graph)");
+        aff.setText("afficher les noeuds intermediaires");
         //p3.add(new JLabel());
         global.add(p3);
         JPanel p4 = new JPanel();
@@ -73,7 +73,7 @@ public class VoisinDe extends JPanel {
             ArrayList<Site> res = filtres(screen.getCarte().delDupli(voisinDe(site, dist)));
             //screen.getLog().addLines(res);
 
-            screen.getLog().addLine("voisins de " + site+" a "+dist+" saut: ");
+            screen.getLog().addLine("voisins de " + site+" a "+dist+" saut: ("+res.size()+" au total)");
             for (Site s : res) screen.getLog().addLine("    " + s.getNom());
             screen.getLog().addLine(" ");
         }
@@ -88,7 +88,7 @@ public class VoisinDe extends JPanel {
             System.out.println("ville");}
         if(filtre.getSelectedItem()=="restaurants")f='R';
         if(filtre.getSelectedItem()=="loisires")f='L';
-        if(filtre.getSelectedItem()=="All")return sites;
+        if(filtre.getSelectedItem()=="tout")return sites;
 
         for(Site s:sites)if(s.getType()==f)newSites.add(s);
 
