@@ -13,7 +13,6 @@ import java.util.ArrayList;
  *  /!\ le premier composant n'a pas 0 comme action
  */
 public class Questionnement extends JTabbedPane {
-//todo: reformer la jpanel en JTabPane
 
 Screen screen;
 
@@ -38,12 +37,8 @@ VoisinDePanel voisin;
 
     public void updateChoix(ArrayList<Site> s){
         voisin.updateChoix(s);
-        /*
-        siteComboBoxModel1.resetChoix();
-        siteComboBoxModel1.addChoix(s);
-        siteComboBoxModel2.resetChoix();
-        siteComboBoxModel2.addChoix(s);
-         */
+
+
 
     }
 }
