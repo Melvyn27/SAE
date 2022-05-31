@@ -2,6 +2,7 @@ package SAE.graphics2.screenComponent;
 
 import SAE.graphics2.Screen;
 import SAE.graphics2.screenComponent.questionComponent.ListerLesSite;
+import SAE.graphics2.screenComponent.questionComponent.PathPanel;
 import SAE.graphics2.screenComponent.questionComponent.VoisinDePanel;
 import SAE.map.Site;
 
@@ -27,7 +28,8 @@ VoisinDePanel voisin;
         addTab("voisin",voisin);
         addTab("lister",new ListerLesSite(screen));
         addTab("encore un test",new JPanel());
-        addTab("fun",new JPanel());
+        addTab("chemin",new PathPanel(screen));
+
 
 
 
