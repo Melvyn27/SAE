@@ -21,10 +21,6 @@ public class Screen extends JFrame {
 
     GraphPanel graphPanel = new GraphPanel(this);
 
-    SiteComboBoxModel siteComboBoxModel1 = new SiteComboBoxModel();
-    SiteComboBoxModel siteComboBoxModel2 = new SiteComboBoxModel();
-    JComboBox<String> choixSite1 = new JComboBox<>(siteComboBoxModel1);
-    JComboBox<String> choixSite2 = new JComboBox<>(siteComboBoxModel1);
 
 
     JPanel leftPanel = new JPanel();
@@ -50,15 +46,8 @@ public class Screen extends JFrame {
         rightPanel.addTab("graphe", graphPanel);
         rightPanel.addTab("settings",settings);
 
-        JPanel p1 = new JPanel();//top panel of leftPanel
-        p1.setLayout(new BoxLayout(p1,BoxLayout.X_AXIS));
-        //p1.add(choixSite1);
-        //p1.add(choixSite2);
-        leftPanel.setPreferredSize(new Dimension(200,0));
-        leftPanel.setMinimumSize(new Dimension(200,0));
         leftPanel.setLayout(new BorderLayout());
-        leftPanel.add(p1,BorderLayout.NORTH);
-        leftPanel.add(questionnement,BorderLayout.CENTER);
+        leftPanel.add(questionnement);
 
         setContentPane(new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftPanel,rightPanel));
     }
@@ -98,28 +87,6 @@ public class Screen extends JFrame {
     }
     public FileLoaderPanel getFileChooserPanel() {
         return fileChooserPanel;
-    }
-
-    public SiteComboBoxModel getSiteComboBoxModel1() {
-        return siteComboBoxModel1;
-    }
-
-    public SiteComboBoxModel getSiteComboBoxModel2() {
-        return siteComboBoxModel2;
-    }
-
-    public JComboBox<String> getChoixSite1() {
-        return choixSite1;
-    }
-    public String getSelectedSite1(){
-        return (String)siteComboBoxModel1.getSelectedItem();
-    }
-    public String getSelectedSite2(){
-        return (String)siteComboBoxModel2.getSelectedItem();
-    }
-
-    public JComboBox<String> getChoixSite2() {
-        return choixSite2;
     }
 
     public static void main(String[] args) {
