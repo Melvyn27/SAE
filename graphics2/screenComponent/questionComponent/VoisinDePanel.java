@@ -31,7 +31,8 @@ public class VoisinDePanel extends JPanel {
         siteComboBoxModel1.addChoix(s);
     }
     void init(){//fixme: bug d'affichage
-        JPanel global = new JPanel(new GridLayout(0,1,1,1));
+        JPanel global = new JPanel();
+        global.setLayout(new BoxLayout(global,BoxLayout.Y_AXIS));
 
         filtre.addItem("tout");
         filtre.addItem("villes");
@@ -39,28 +40,28 @@ public class VoisinDePanel extends JPanel {
         filtre.addItem("loisires");
 
 
-        global.add(choixSite1);
-
         JPanel p2 = new JPanel();
         p2.add(new JLabel("distance: "));
         p2.add(dist);
         dist.setToolTipText("conseil: ne depasse pas 10 stp");
-        global.add(p2);
 
         JPanel p3 = new JPanel();
         p3.add(aff);
-        aff.setText("afficher tout les points(Graph)");
-        //p3.add(new JLabel());
-        global.add(p3);
+        aff.setText("afficher les noeuds intermediaires");
+
         JPanel p4 = new JPanel();
         JLabel l4 = new JLabel("filtre");
         filtre.setToolTipText("filtre l'affichage des sites pour les Logs");
         p4.add(l4);
         p4.add(filtre);
-        global.add(p4);
 
         JButton b =new JButton("trouver les voisin");
         b.addActionListener(v->start());
+
+        global.add(choixSite1);
+        global.add(p2);
+        global.add(p3);
+        global.add(p4);
         global.add(b);
 
         add(global);
