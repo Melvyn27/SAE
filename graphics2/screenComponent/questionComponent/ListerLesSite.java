@@ -4,6 +4,7 @@ import SAE.graphics2.Screen;
 import SAE.map.Site;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ListerLesSite extends JPanel {
@@ -18,6 +19,9 @@ public class ListerLesSite extends JPanel {
     }
 
     void init(){
+
+        setLayout(new GridLayout(0,1));
+
         JButton v = new JButton("lister les ville");
         v.addActionListener(a->{screen.getCarte().resetGraph();listerLesVilles();});
         JButton r = new JButton("lister les restaurants");
