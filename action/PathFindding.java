@@ -1,6 +1,7 @@
-package SAE.graphics2.screenComponent.questionComponent;
+package SAE.action;
 
 import SAE.graphics2.Screen;
+import SAE.map.Route;
 import SAE.map.Site;
 
 import java.util.ArrayList;
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 public class PathFindding {
     Screen screen;
     int i = 0;
-    private ArrayList<DijkstraSite> liste;
-    private ArrayList<DijkstraSite> visite;
+    private ArrayList<DijkstraSite> liste=new ArrayList<>();
+    private ArrayList<DijkstraSite> visite=new ArrayList<>();
 
     public PathFindding(Screen screen) {
         this.screen = screen;
@@ -28,7 +29,7 @@ public class PathFindding {
     }
 
 
-    private ArrayList<Site> PathFindding(String src, String dest) {
+    public ArrayList<Site> PathFindding(String src, String dest) {
         DijkstraSite a;
         for (i = 0; i < screen.getCarte().getSites().size(); i++) {
             DijkstraSite newSite = new DijkstraSite(screen.getCarte().getSites().get(i));
@@ -50,14 +51,18 @@ public class PathFindding {
             visite.add(a);
             liste.remove(a);
             for (i = 0; i < liste.size(); i++) {//set les distance
-                if (liste.get(i).distance > a.distance + screen.getCarte().sites.get(a.site.getNom()).getRoute(liste.get(i).site.getNom()).getLongueur() || liste.get(i).distance == -1) {
-                    liste.get(i).distance = a.distance + screen.getCarte().sites.get(a.site.getNom()).getRoute(liste.get(i).site.getNom()).getLongueur();
-                    liste.get(i).source = a;
+                Route sd = screen.getCarte().sites.get(a.site.getNom()).getRoute(liste.get(i).site.getNom());
+                if(sd!=null) {
+                    int dist = a.distance + sd.getLongueur();
+                    if (liste.get(i).distance > dist || liste.get(i).distance == -1) {
+                        liste.get(i).distance = a.distance + screen.getCarte().sites.get(a.site.getNom()).getRoute(liste.get(i).site.getNom()).getLongueur();
+                        liste.get(i).source = a;
+                    }
                 }
             }
         }
 
-        return dijkstra(screen.getCarte().sites.get(src), screen.getCarte().sites.get(src));
+        return dijkstra(screen.getCarte().sites.get(src), screen.getCarte().sites.get(dest));
     }
 
     private ArrayList<Site> dijkstra(Site src, Site dest) {
@@ -68,7 +73,7 @@ public class PathFindding {
             }
         }
 
-        ArrayList<Site> chemin = null;
+        ArrayList<Site> chemin = new ArrayList<>();
         while (a.site != src) {
             chemin.add(a.site);
             a = a.source;
