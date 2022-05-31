@@ -2,7 +2,7 @@ package SAE.graphics2.screenComponent;
 
 import SAE.graphics2.Screen;
 import SAE.graphics2.screenComponent.questionComponent.ListerLesSite;
-import SAE.graphics2.screenComponent.questionComponent.VoisinDe;
+import SAE.graphics2.screenComponent.questionComponent.VoisinDePanel;
 import SAE.map.Site;
 
 import javax.swing.*;
@@ -16,12 +16,12 @@ public class Questionnement extends JTabbedPane {
 
 Screen screen;
 
-VoisinDe voisin;
+VoisinDePanel voisin;
 
 
     public Questionnement(Screen screen){
         this.screen=screen;
-        voisin = new VoisinDe(screen);
+        voisin = new VoisinDePanel(screen);
 
 
         addTab("voisin",voisin);
