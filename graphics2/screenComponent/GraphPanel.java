@@ -38,7 +38,6 @@ public class GraphPanel extends JPanel {
         displayGraphics=(Graphics2D) g;
         carte = screen.getCarte();
         if(carte!=null)draw();
-        repaint();
     }
 
     public void draw(){
@@ -80,7 +79,7 @@ public class GraphPanel extends JPanel {
         }
     }
     void drawRoute(Route r){
-        if(carte.sites.get(r.getSource()).isSelectionné() && carte.sites.get(r.getDestination()).isSelectionné() && r.isSelectionné()) {
+        if(carte.sites.get(r.getSource()).isSelectionné() && carte.sites.get(r.getDestination()).isSelectionné()) {
 
             Point p1 = carte.sites.get(r.getSource()).getCoordonnée();
             Point p2 = carte.sites.get(r.getDestination()).getCoordonnée();
