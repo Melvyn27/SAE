@@ -2,5 +2,7 @@ package SAE.graphics2.format;
 
 public enum DisplayStyle {
     Reduce,
-    All
+    All,
+    Only_Sites,
+    Only_Roads
 }

@@ -11,7 +11,7 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static SAE.graphics2.format.DisplayStyle.All;
+import static SAE.graphics2.format.DisplayStyle.*;
 
 public class GraphPanel extends JPanel {
     Carte carte;
@@ -47,13 +47,14 @@ public class GraphPanel extends JPanel {
 
     }
     void drawRoutes(){
+        if(style!= Only_Sites)
         for(Route r:carte.getRoute()){
             drawRoute(r);
         }
 
     }
     void drawSites(){
-
+        if(style!= Only_Roads)
         for(Site s:carte.getSites()){
             drawSite(s);
         }
