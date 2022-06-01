@@ -18,6 +18,7 @@ public class Screen extends JFrame {
     FileLoaderPanel fileChooserPanel = new FileLoaderPanel(this);
     Questionnement questionnement = new Questionnement(this);
     SettingsPanel settings = new SettingsPanel(this);
+    InformationPanel info = new InformationPanel(this);
 
     GraphPanel graphPanel = new GraphPanel(this);
 
@@ -45,6 +46,8 @@ public class Screen extends JFrame {
         rightPanel.addTab("file",null,fileChooserPanel,"choose a file to load");
         rightPanel.addTab("graphe", graphPanel);
         rightPanel.addTab("settings",settings);
+        rightPanel.addTab("information",info);
+
 
         leftPanel.setLayout(new BorderLayout());
         leftPanel.add(questionnement);
@@ -67,6 +70,7 @@ public class Screen extends JFrame {
      */
     public void update(){
         setChoix(carte.getSites());
+        info.update();
         graphPanel.revalidate();
         graphPanel.repaint();
         repaint();
