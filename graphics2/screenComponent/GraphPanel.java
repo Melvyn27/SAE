@@ -65,7 +65,6 @@ public class GraphPanel extends JPanel {
     void drawSite(Site s){
         if(s.isSelectionné()) {
 
-
             Point p = s.getCoordonnée();
             int x = (int) ((p.getX() / 100.0) * this.getWidth()) - pointSize / 2;
             int y = (int) ((p.getY() / 100.0) * this.getHeight()) - pointSize / 2;
@@ -73,14 +72,24 @@ public class GraphPanel extends JPanel {
             if (s.getType() == 'V') displayGraphics.setColor(Color.red);
             if (s.getType() == 'L') displayGraphics.setColor(Color.GREEN);
             if (s.getType() == 'R') displayGraphics.setColor(Color.blue);
-            if (s.isRechercher()) displayGraphics.setColor(Color.gray);
+            if (s.isRechercher()) displayGraphics.setColor(Color.lightGray);
 
             displayGraphics.setStroke(new BasicStroke(1));
             displayGraphics.fillOval(x, y, pointSize, pointSize);
+        }else if(style== All){
+            Point p = s.getCoordonnée();
+            int x = (int) ((p.getX() / 100.0) * this.getWidth()) - pointSize / 2;
+            int y = (int) ((p.getY() / 100.0) * this.getHeight()) - pointSize / 2;
+            displayGraphics.setColor(Color.black);
+
+            displayGraphics.setStroke(new BasicStroke(1));
+            displayGraphics.fillOval(x, y, pointSize, pointSize);
+
         }
+
     }
     void drawRoute(Route r){
-        if(carte.sites.get(r.getSource()).isSelectionné() && carte.sites.get(r.getDestination()).isSelectionné()) {
+        if (carte.sites.get(r.getSource()).isSelectionné() && carte.sites.get(r.getDestination()).isSelectionné()) {
 
             Point p1 = carte.sites.get(r.getSource()).getCoordonnée();
             Point p2 = carte.sites.get(r.getDestination()).getCoordonnée();
@@ -96,7 +105,19 @@ public class GraphPanel extends JPanel {
 
             displayGraphics.setStroke(new BasicStroke(3));
             displayGraphics.drawLine(x1, y1, x2, y2);
+        }else if(style==All){
+            Point p1 = carte.sites.get(r.getSource()).getCoordonnée();
+            Point p2 = carte.sites.get(r.getDestination()).getCoordonnée();
+
+            int x1 = (int) ((p1.getX() / 100.0) * this.getWidth());
+            int y1 = (int) ((p1.getY() / 100.0) * this.getHeight());
+            int x2 = (int) ((p2.getX() / 100.0) * this.getWidth());
+            int y2 = (int) ((p2.getY() / 100.0) * this.getHeight());
+            displayGraphics.setColor(Color.black);
+            displayGraphics.setStroke(new BasicStroke(3));
+            displayGraphics.drawLine(x1, y1, x2, y2);
         }
+
     }
 
 
