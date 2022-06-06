@@ -7,15 +7,27 @@ public class Site {
     String nom;
     char type;
     ArrayList<Route> routes = new ArrayList<>();
+    /**
+     * variable d'affichage
+     */
     boolean selectionné=true;
-
+    /**
+     * variable d'affichage
+     */
     boolean rechercher=false;
 
-    public Point coordonnée=new Point(Math.abs(new Random().nextInt()%100),Math.abs(new Random().nextInt()%100));
+    /**
+     * les coordonnée sont en pourcentage de positionnement
+     */
+    public Point coordonnée;
 
     public Site(String nom, char type) {
         this.nom = nom;
         this.type = type;
+        double angle = new Random().nextFloat(2)*Math.PI;
+        int distance = new Random().nextInt(10,50);
+        coordonnée = new Point((int)(distance * Math.cos(angle))+50,(int)(distance * Math.sin(angle))+50);
+
     }
     public Site(String nom, char type,Point coordonnée) {
         this.nom = nom;
