@@ -36,8 +36,9 @@ public class SettingsPanel extends JPanel {
         }
         addSettings("format d'affichage du Graphe",graphStyle);
 
-
-        addSettings("test",new JButton("test"));
+        JCheckBox md=new JCheckBox();
+        md.addActionListener(m->screen.getGraphPanel().modeDaltonien=md.isSelected());
+        addSettings("mode daltonien",md);
 
 
 
@@ -47,7 +48,7 @@ public class SettingsPanel extends JPanel {
     void addSettings(String legends,JComponent component){
         JPanel p1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        p1.setBackground(new Color(50,50,50));
+        p1.setBackground(new Color(100,100,100));
 
         p1.add(new JLabel(legends));
         p1.add(component);
