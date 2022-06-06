@@ -7,17 +7,29 @@ import java.util.ArrayList;
 
 public class VoisinDe {
 
-    boolean aff = false;
+    boolean intermediaire = false;
     Carte carte;
     char filtre = ' ';
     ArrayList<Site> sites;
 
-    public VoisinDe(boolean aff,Carte carte){
-        this.aff=aff;
+    /**
+     *
+     * initialisation de la classe
+     * @param intermediaire
+     * @param carte
+     */
+    public VoisinDe(boolean intermediaire,Carte carte){
+        this.intermediaire =intermediaire;
         this.carte=carte;
         sites=carte.getSites();
     }
 
+    /**
+     * lance la recherche
+     * @param src
+     * @param dist
+     * @return  se retourne soit meme pour pouvoir enchainer les methodes
+     */
     public VoisinDe start(String src,int dist){
 
         if(src!=null) {
@@ -27,7 +39,11 @@ public class VoisinDe {
         return this;
     }
 
-
+    /**
+     * effectue un filtre pour ne garder que se que l'on veut
+     * @param filtre
+     * @return se retourne soit meme pour pouvoir enchainer les methodes
+     */
     public VoisinDe filtres(String filtre){
         ArrayList<Site> newSites = new ArrayList<>();
         char f=' ';
@@ -63,7 +79,7 @@ public class VoisinDe {
         if(site!=null){
             if(jump>0){
                 for(String s:site.getVoisin()){
-                    if(aff){v.add(site);}
+                    if(intermediaire){v.add(site);}
                     v.addAll(voisinDe(s,jump-1));
                 }
             }else{
@@ -78,6 +94,10 @@ public class VoisinDe {
         return this;
     }
 
+    /**
+     *
+     * @return les resultats de la recherche
+     */
     public ArrayList<Site> getSites() {
         return sites;
     }
