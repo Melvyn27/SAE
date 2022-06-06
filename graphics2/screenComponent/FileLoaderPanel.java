@@ -30,8 +30,8 @@ public class FileLoaderPanel extends JPanel {
         fileChooser.setMultiSelectionEnabled(false);
         add(fileChooser, BorderLayout.CENTER);
 
-        loadSiteBar.setForeground(Color.BLUE);
-        loadDestBar.setForeground(Color.green);
+        loadSiteBar.setForeground(Color.BLUE.darker());
+        loadDestBar.setForeground(Color.green.darker());
         JPanel p0 = new JPanel();
         JPanel p1 = new JPanel();
         JPanel p2 = new JPanel();
