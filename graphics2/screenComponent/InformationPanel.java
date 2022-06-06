@@ -58,7 +58,7 @@ public class InformationPanel extends JPanel {
     void addInfo(String legends,JComponent component){
         JPanel p1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        p1.setBackground(new Color(50,50,50));
+        p1.setBackground(new Color(100,100,100));
 
         p1.add(new JLabel(legends));
         p1.add(component);
