@@ -3,11 +3,9 @@ package SAE.graphics2.screenComponent.questionComponent;
 import SAE.action.VoisinDe;
 import SAE.graphics2.Screen;
 import SAE.graphics2.comboBoxModel.SiteComboBoxModel;
-import SAE.map.Route;
 import SAE.map.Site;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class VoisinDePanel extends JPanel {
@@ -17,7 +15,7 @@ public class VoisinDePanel extends JPanel {
     JComboBox<String> choixSite1 = new JComboBox<>(siteComboBoxModel1);
     JComboBox<String> filtre = new JComboBox<>();
 
-    JCheckBox aff = new JCheckBox();
+    JCheckBox intermediaire = new JCheckBox();
 
 
     JTextField dist = new JTextField(3);
@@ -46,8 +44,8 @@ public class VoisinDePanel extends JPanel {
         dist.setToolTipText("conseil: ne depasse pas 10 stp");
 
         JPanel p3 = new JPanel();
-        p3.add(aff);
-        aff.setText("afficher les noeuds intermediaires");
+        p3.add(intermediaire);
+        intermediaire.setText("afficher les noeuds intermediaires");
 
         JPanel p4 = new JPanel();
         JLabel l4 = new JLabel("filtre");
@@ -73,7 +71,7 @@ public class VoisinDePanel extends JPanel {
         String site = (String)choixSite1.getSelectedItem();
 
 
-        ArrayList<Site> res = new VoisinDe(aff.isSelected(),screen.getCarte()).start(site,Integer.parseInt(dist.getText())).delDupli().filtres((String)filtre.getSelectedItem()).getSites();
+        ArrayList<Site> res = new VoisinDe(intermediaire.isSelected(),screen.getCarte()).start(site,Integer.parseInt(dist.getText())).delDupli().filtres((String)filtre.getSelectedItem()).getSites();
         screen.getCarte().resetGraph();
         screen.getCarte().sites.get(site).setRechercher(true);
         for(Site s:res){
