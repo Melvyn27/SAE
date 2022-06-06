@@ -9,6 +9,8 @@ import SAE.map.Route;
 import SAE.map.Site;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -43,11 +45,11 @@ public class ChargementParallele extends Thread{
         try {
             long milliTimeCount = System.currentTimeMillis();
             load();
+            verification();
             screen.getFileChooserPanel().confirmeCarte(carte);
+            repositionnement();
             setTargetMessage("chargement fini.");//indication de chargement sur le panel
-            screen.getFileChooserPanel().loadSiteBar.setStringPainted(false);
-            screen.getFileChooserPanel().loadDestBar.setStringPainted(false);
-            System.out.println("ended");
+            System.out.println("chargement fini.");
             screen.getLog().addLine("file "+file.getName()+" loaded in: "+(System.currentTimeMillis()-milliTimeCount)+" ms");
         } catch (LoadExeption e) {
             //e.printStackTrace();
@@ -67,7 +69,10 @@ public class ChargementParallele extends Thread{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        screen.getFileChooserPanel().loadSiteBar.setStringPainted(false);
+        screen.getFileChooserPanel().loadDestBar.setStringPainted(false);
+        screen.getFileChooserPanel().loadSiteBar.setValue(0);
+        screen.getFileChooserPanel().loadDestBar.setValue(0);
         this.running = false;
     }
     public boolean isRunning() {
@@ -83,7 +88,9 @@ public class ChargementParallele extends Thread{
         screen.getFileChooserPanel().information.setText(message);
     }
 
-    void load() throws LoadExeption, VerificationExeption, IOException, InterruptedException {
+
+
+    private void load() throws LoadExeption, IOException, InterruptedException {
         screen.getFileChooserPanel().loadSiteBar.setStringPainted(true);
         screen.getFileChooserPanel().loadDestBar.setStringPainted(true);
         screen.getFileChooserPanel().loadSiteBar.setMaximum(totalLineCount());//affichage
@@ -115,18 +122,16 @@ public class ChargementParallele extends Thread{
                 screen.getFileChooserPanel().loadDestBar.setString("route: "+dest);
                 site.ajouterRoute(t,Integer.parseInt(dist),dest);
 
-                sleep(10);
+                sleep(10);//juste pour le style
 
             }//chargement route
             carte.ajouterSite(site);
             screen.getFileChooserPanel().loadSiteBar.setValue(lineCount+1);//affichage
             lineCount++;//affichage
         }while (inputFile.hasNextLine());//chargement ligne
-        verification();
     }
 
-
-    void verification() throws VerificationExeption, InterruptedException {
+    private void verification() throws VerificationExeption, InterruptedException {
         screen.getFileChooserPanel().loadSiteBar.setValue(0);
         screen.getFileChooserPanel().loadDestBar.setValue(0);//reset des bars
 
@@ -143,7 +148,7 @@ public class ChargementParallele extends Thread{
                 if (!carte.containSite(r.getDestination()))throw new VerificationExeption(screen.getFileChooserPanel(),r.getDestination());
                     j++;
 
-                    sleep(10);
+                    sleep(10);//juste pour le style
 
             }
 
@@ -152,6 +157,49 @@ public class ChargementParallele extends Thread{
         screen.getFileChooserPanel().loadSiteBar.setValue(0);
         screen.getFileChooserPanel().loadDestBar.setValue(0);//reset des bars
     }
+
+    private void repositionnement() throws InterruptedException {
+        screen.getFileChooserPanel().loadSiteBar.setIndeterminate(true);
+        screen.getFileChooserPanel().loadDestBar.setIndeterminate(true);
+        setTargetMessage("replacement des points");
+
+
+        ArrayList<Site> sites = carte.getSites();
+        boolean movingPoint=false;
+        do{
+            movingPoint=false;
+            for(Site site:sites){
+
+                for(Site s:sites){
+                    if(site!=s){
+                        if(site.coordonnée.getX()==s.coordonnée.getX() && site.coordonnée.getY()==s.coordonnée.getY())site.coordonnée.setX(site.coordonnée.getX()+2);
+
+                        if(Point2D.distance(site.coordonnée.getX(),site.coordonnée.getY(),s.coordonnée.getX(),s.coordonnée.getY())<10){
+                            double angle=Math.atan2(s.coordonnée.getY()-site.coordonnée.getY(),s.coordonnée.getX()-site.coordonnée.getX());
+                            double dist=Point2D.distance(site.coordonnée.getX(),site.coordonnée.getY(),s.coordonnée.getX(),s.coordonnée.getY());
+                            site.coordonnée.setX((int)(11*Math.cos(angle))+s.coordonnée.getX());
+                            site.coordonnée.setY((int)(11*Math.sin(angle))+s.coordonnée.getY());
+                            movingPoint=true;
+                        }
+                    }
+
+                }
+                sleep(1);//aussi pour le style
+                screen.getGraphPanel().repaint();
+                site.coordonnée.constrain(10,10,90,90);
+            }
+
+
+
+        }while(movingPoint);
+
+        screen.getFileChooserPanel().loadSiteBar.setIndeterminate(false);
+        screen.getFileChooserPanel().loadDestBar.setIndeterminate(false);
+
+
+    }
+
+
     private ArrayList<String> lineSeq(String line){
         ArrayList<String> seqline = new ArrayList<>();
         seqline.add(line.substring(0,line.indexOf(":")));
