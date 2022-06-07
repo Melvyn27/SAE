@@ -30,7 +30,7 @@ public class Log extends JPanel {
 
 
     void init(){
-        downPanel.setBorder(new LineBorder(new Color(0,0,0)));
+        downPanel.setBorder(new LineBorder(new Color(100,100,100)));
 
         setLayout(new BorderLayout());
         downPanel.setLayout(new BoxLayout(downPanel,BoxLayout.Y_AXIS));
@@ -46,12 +46,17 @@ public class Log extends JPanel {
 
         JButton test = new JButton("test");
         test.addActionListener(null);
-        upPanel.add(test);
+        //upPanel.add(test);
 
 
 
 
     }
+
+    /**
+     * ajoute une ligne
+     * @param str
+     */
     public void addLine(String str){
         downPanel.add(new JLabel(str));
         JScrollBar bar= view.getVerticalScrollBar();
@@ -60,6 +65,10 @@ public class Log extends JPanel {
         revalidate();
 
     }
+    /**
+     * ajoute un site selon le format defini
+     * @param site
+     */
     public void addLine(Site site){
         switch (format){
             case all -> addLine(site.toString());
@@ -67,12 +76,19 @@ public class Log extends JPanel {
 
         }
     }
+
+    /**
+     * ajoute un ensemble de site selon le format defini
+     * @param sites
+     */
     public void addLines(ArrayList<Site> sites){
         for (Site s:sites)addLine(s);
     }
 
 
-
+/**
+ * vide les log de toute ligne
+ */
     public void clear(){
         downPanel.removeAll();
         System.out.println("component free");
