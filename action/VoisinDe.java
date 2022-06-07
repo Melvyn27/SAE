@@ -50,15 +50,12 @@ public class VoisinDe {
         char f=' ';
         if(filtre!="tout") {
             if (filtre == "villes"){
-                System.out.println("V");
                 f = 'V';
             }
             if (filtre == "restaurants"){
-                System.out.println("R");
                 f = 'R';
             }
             if (filtre == "loisires"){
-                System.out.println("L");
                 f = 'L';
             }
             for (Site s : sites) {
@@ -67,7 +64,7 @@ public class VoisinDe {
                 }
             }
             sites = newSites;
-        }else System.out.println("T");
+        }
         return this;
     }
 
