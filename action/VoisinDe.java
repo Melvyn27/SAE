@@ -41,6 +41,7 @@ public class VoisinDe {
 
     /**
      * effectue un filtre pour ne garder que se que l'on veut
+     * filtre parmi villes, restaurants, loisires
      * @param filtre
      * @return se retourne soit meme pour pouvoir enchainer les methodes
      */
