@@ -20,7 +20,7 @@ import java.security.cert.PolicyNode;
 
 import static SAE.graphics2.format.DisplayStyle.*;
 
-public class GraphPanel extends JPanel implements MouseListener {
+public class GraphPanel extends JPanel implements MouseListener,MouseMotionListener {
     Carte carte;
     JScrollPane view=new JScrollPane();
     DisplayStyle style = Reduce;
@@ -43,6 +43,7 @@ public class GraphPanel extends JPanel implements MouseListener {
         this.screen=screen;
         carte = screen.getCarte();
         addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
 
@@ -85,15 +86,20 @@ public class GraphPanel extends JPanel implements MouseListener {
 
 
             if(!modeDaltonien) {
+                int size = pointSize;
                 if (s.getType() == 'V') displayGraphics.setColor(Color.red.darker());
                 if (s.getType() == 'L') displayGraphics.setColor(Color.pink.darker());
                 if (s.getType() == 'R') displayGraphics.setColor(Color.yellow.darker());
-                if (s.isRechercher()) displayGraphics.setColor(Color.lightGray);
+                if (s.isRechercher()){
+                    size*=2;
+                    displayGraphics.setColor(Color.lightGray);
+                }
+
 
                 displayGraphics.setStroke(new BasicStroke(1));
-                displayGraphics.fillOval(x, y, pointSize, pointSize);
+                displayGraphics.fillOval(x, y, size, size);
                 displayGraphics.setColor(Color.black);
-                displayGraphics.drawOval(x, y, pointSize, pointSize);
+                displayGraphics.drawOval(x, y, size, size);
 
             }else{
                 displayGraphics.setStroke(new BasicStroke(1));
@@ -223,14 +229,71 @@ public class GraphPanel extends JPanel implements MouseListener {
         }
     }
 
+
+    boolean mouseIsPressed=false;
+    Site selectedSiteToMove = null;
+
     @Override
     public void mousePressed(MouseEvent e) {
+        //init
+        if(info != null)info.dispose();
+        System.out.println("mouse pressed");
+        selectedSiteToMove=null;
+        mouseIsPressed =true;
 
+
+        for(Site s:carte.getSites()){
+            if(s.isSelectionné()) {
+                if (Point2D.distance(e.getX() * 100f / getWidth(), e.getY() * 100f / getHeight(), s.coordonnée.getX(), s.coordonnée.getY()) < pointSize/4f){
+                    selectedSiteToMove=s;
+                    System.out.println("find");
+                    break;
+                }
+            }
+        }
+
+
+/*
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(!mouseIsPressed)return;
+                System.out.println("press");
+                Site site=null;
+                for(Site s:carte.getSites()){
+                    if(s.isSelectionné()) {
+                        if (Point2D.distance(e.getX() * 100f / getWidth(), e.getY() * 100f / getHeight(), s.coordonnée.getX(), s.coordonnée.getY()) < pointSize/4f){
+                            site=s;
+                            System.out.println("find");
+                            break;
+                        }
+                    }
+                }
+
+                if(site!=null) {
+                    while (mouseIsPressed) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                        System.out.println("move");
+                        site.coordonnée.setX(MouseInfo.getPointerInfo().getLocation().x*100/getWidth());
+                        site.coordonnée.setY(MouseInfo.getPointerInfo().getLocation().y*100/getHeight());
+                        repaint();
+                    }
+                }
+            }
+        }).start();
+
+*/
+        System.out.println("end");
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        System.out.println("mouse released");
+        mouseIsPressed =false;
     }
 
     @Override
@@ -240,6 +303,23 @@ public class GraphPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        System.out.println("mouse dragged");
+        if(mouseIsPressed && selectedSiteToMove!=null){
+            System.out.println("site is move");
+            selectedSiteToMove.coordonnée.setX(e.getX()*100/getWidth());
+            selectedSiteToMove.coordonnée.setY(e.getY()*100/getHeight());
+            repaint();
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        //System.out.println("mouse move");
 
     }
 }
