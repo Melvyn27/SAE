@@ -12,6 +12,7 @@ import java.util.TreeMap;
 
 public class SettingsPanel extends JPanel {
     Screen screen;
+    int fun_count=0;
 
     JPanel global = new JPanel(new GridLayout(0,2,10,10));
 
@@ -39,11 +40,13 @@ public class SettingsPanel extends JPanel {
 
         JCheckBox md=new JCheckBox();
         md.addActionListener(m->screen.getGraphPanel().modeDaltonien=md.isSelected());
-        addSettings("mode daltonien",md);
+        addSettings("mode daltonien",md,"squid game mod");
 
 
         JButton fun = new JButton("fun mode");
         fun.addActionListener(l->{
+            fun_count++;
+            if(fun_count==10)
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -64,7 +67,7 @@ public class SettingsPanel extends JPanel {
                 }
             }).start();
         });
-        addSettings("lol",fun);
+        addSettings("lol",fun,"eh, chui pas un moustique");
 
 
 
@@ -83,6 +86,17 @@ public class SettingsPanel extends JPanel {
         p1.add(new JLabel(legends));
         p1.add(component);
 
+        global.add(p1);
+
+    }
+    void addSettings(String legends,JComponent component,String toolTip){
+        JPanel p1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+        p1.setBackground(new Color(100,100,100));
+
+        p1.add(new JLabel(legends));
+        p1.add(component);
+        p1.setToolTipText(toolTip);
         global.add(p1);
 
     }
