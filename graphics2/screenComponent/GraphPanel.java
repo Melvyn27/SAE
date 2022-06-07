@@ -81,8 +81,8 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
         if(s.isSelectionné()) {
 
             Point p = s.getCoordonnée();
-            int x = (int) ((p.getX() / 100.0) * this.getWidth()) - pointSize / 2;
-            int y = (int) ((p.getY() / 100.0) * this.getHeight()) - pointSize / 2;
+            int x = (int) ((p.getX() / 100.0) * this.getWidth());
+            int y = (int) ((p.getY() / 100.0) * this.getHeight());
 
 
             if(!modeDaltonien) {
@@ -97,26 +97,26 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
 
 
                 displayGraphics.setStroke(new BasicStroke(1));
-                displayGraphics.fillOval(x, y, size, size);
+                displayGraphics.fillOval(x-size/2, y-size/2, size, size);
                 displayGraphics.setColor(Color.black);
-                displayGraphics.drawOval(x, y, size, size);
+                displayGraphics.drawOval(x-size/2, y-size/2, size, size);
 
             }else{
                 displayGraphics.setStroke(new BasicStroke(1));
                 displayGraphics.setColor(Color.lightGray);
-                if (s.isRechercher())displayGraphics.fillOval(x, y, pointSize*2, pointSize*2);
-                else{
-                    if (s.getType() == 'V') displayGraphics.fillOval(x, y, pointSize, pointSize);
-                    if (s.getType() == 'L') displayGraphics.fill(drawTriangle(x+pointSize / 2,y+pointSize / 2));
-                    if (s.getType() == 'R') displayGraphics.fill(new Rectangle(x,y,pointSize,pointSize));
-                }
+                int size = pointSize;
+                if (s.isRechercher())size*=2;
+                    if (s.getType() == 'V') displayGraphics.fillOval(x-size/2, y-size/2, size, size);
+                    if (s.getType() == 'L') displayGraphics.fill(drawTriangle(x, y, size));
+                    if (s.getType() == 'R') displayGraphics.fill(new Rectangle(x-size/2, y-size/2, size, size));
+
 
 
             }
         }else if(style== All){
             Point p = s.getCoordonnée();
-            int x = (int) ((p.getX() / 100.0) * this.getWidth()) - pointSize / 2;
-            int y = (int) ((p.getY() / 100.0) * this.getHeight()) - pointSize / 2;
+            int x = (int) ((p.getX() / 100.0) * this.getWidth()) - pointSize / 4;
+            int y = (int) ((p.getY() / 100.0) * this.getHeight()) - pointSize / 4;
             displayGraphics.setColor(Color.black);
 
             displayGraphics.setStroke(new BasicStroke(1));
@@ -158,15 +158,15 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
     }
 
 
-    private Polygon drawTriangle(int xOrigin,int yOrigin){
+    private Polygon drawTriangle(int xOrigin,int yOrigin, int size){
         Polygon triangle;
 
-        int x1=(int)(Math.cos(0)*pointSize/2)+xOrigin;
-        int y1=(int)(Math.sin(0)*pointSize/2)+yOrigin;
-        int x2=(int)(Math.cos(2*Math.PI/3f)*pointSize/2)+xOrigin;
-        int y2=(int)(Math.sin(2*Math.PI/3f)*pointSize/2)+yOrigin;
-        int x3=(int)(Math.cos(4*Math.PI/3f)*pointSize/2)+xOrigin;
-        int y3=(int)(Math.sin(4*Math.PI/3f)*pointSize/2)+yOrigin;
+        int x1=(int)(Math.cos(0)*size/2)+xOrigin;
+        int y1=(int)(Math.sin(0)*size/2)+yOrigin;
+        int x2=(int)(Math.cos(2*Math.PI/3f)*size/2)+xOrigin;
+        int y2=(int)(Math.sin(2*Math.PI/3f)*size/2)+yOrigin;
+        int x3=(int)(Math.cos(4*Math.PI/3f)*size/2)+xOrigin;
+        int y3=(int)(Math.sin(4*Math.PI/3f)*size/2)+yOrigin;
 
         triangle=new Polygon(new int[]{x1, x2, x3},new int[]{y1, y2, y3},3);
         return triangle;
