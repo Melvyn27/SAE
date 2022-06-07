@@ -194,8 +194,6 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
         p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
         info.add(p);
 
-        System.out.println("click on graph");
-
         for(Site s:carte.getSites()){
             if(s.isSelectionné()) {
                 if (Point2D.distance(e.getX() * 100f / this.getWidth(), e.getY() * 100f / this.getHeight(), s.coordonnée.getX(), s.coordonnée.getY()) < pointSize/4f){
@@ -237,7 +235,6 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
     public void mousePressed(MouseEvent e) {
         //init
         if(info != null)info.dispose();
-        System.out.println("mouse pressed");
         selectedSiteToMove=null;
         mouseIsPressed =true;
 
@@ -246,7 +243,6 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
             if(s.isSelectionné()) {
                 if (Point2D.distance(e.getX() * 100f / getWidth(), e.getY() * 100f / getHeight(), s.coordonnée.getX(), s.coordonnée.getY()) < pointSize/4f){
                     selectedSiteToMove=s;
-                    System.out.println("find");
                     break;
                 }
             }
@@ -287,12 +283,10 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
         }).start();
 
 */
-        System.out.println("end");
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("mouse released");
         mouseIsPressed =false;
     }
 
@@ -308,9 +302,7 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("mouse dragged");
         if(mouseIsPressed && selectedSiteToMove!=null){
-            System.out.println("site is move");
             selectedSiteToMove.coordonnée.setX(e.getX()*100/getWidth());
             selectedSiteToMove.coordonnée.setY(e.getY()*100/getHeight());
             repaint();
@@ -319,7 +311,5 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        //System.out.println("mouse move");
-
     }
 }
