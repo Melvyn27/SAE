@@ -3,9 +3,12 @@ package SAE.graphics2.screenComponent;
 import SAE.graphics2.format.DisplayStyle;
 import SAE.graphics2.Screen;
 import SAE.graphics2.format.LogFormat;
+import SAE.map.Site;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
+import java.util.TreeMap;
 
 public class SettingsPanel extends JPanel {
     Screen screen;
@@ -19,8 +22,6 @@ public class SettingsPanel extends JPanel {
     }
 
     void init(){
-
-
         JComboBox<LogFormat> choosFormat= new JComboBox<>();
         {
             for(int i=0;i<LogFormat.values().length;i++)choosFormat.addItem(LogFormat.values()[i]);
@@ -39,6 +40,35 @@ public class SettingsPanel extends JPanel {
         JCheckBox md=new JCheckBox();
         md.addActionListener(m->screen.getGraphPanel().modeDaltonien=md.isSelected());
         addSettings("mode daltonien",md);
+
+
+        JButton fun = new JButton("fun mode");
+        fun.addActionListener(l->{
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    screen.rightPanel.setEnabledAt(1,false);
+                    fun.setEnabled(false);
+                    while (true){
+                        for(Site s:screen.getCarte().getSites()){
+                            s.coordonnée.setX(new Random().nextInt(10,90));
+                            s.coordonnée.setY(new Random().nextInt(10,90));
+                            screen.getGraphPanel().repaint();
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }).start();
+        });
+        addSettings("lol",fun);
+
+
+
+
 
 
 

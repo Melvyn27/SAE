@@ -25,7 +25,7 @@ public class Screen extends JFrame {
 
 
     JPanel leftPanel = new JPanel();
-    JTabbedPane rightPanel = new JTabbedPane();
+    public JTabbedPane rightPanel = new JTabbedPane();
 
 
     public Screen(){
