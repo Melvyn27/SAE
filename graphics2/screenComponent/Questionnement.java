@@ -39,5 +39,6 @@ VoisinProchePanel voisinProche;
         voisin.updateChoix(s);
         voisinProche.updateChoix(s);
 
+
     }
 }
