@@ -3,6 +3,7 @@ package SAE.map;
 
 /**
  * class de coordonnée
+ * un peu plus fournie que celle d'awt
  */
 public class Point {
     int x;

@@ -15,6 +15,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * la classe ChargementParallele effectue le chargement du jeu de donnée sur un autre Thread pour ne pas bloquer la fenêtre
+ */
 public class ChargementParallele extends Thread{
     private volatile boolean running = true;
 
@@ -89,7 +92,14 @@ public class ChargementParallele extends Thread{
     }
 
 
-
+    /**
+     * charge le fichier dans un objet Carte
+     * il y a une verification en Regex pour detecter une erreur et stoper le chargement avant la confirmation des données
+     *
+     * @throws LoadExeption
+     * @throws IOException
+     * @throws InterruptedException
+     */
     private void load() throws LoadExeption, IOException, InterruptedException {
         screen.getFileChooserPanel().loadSiteBar.setStringPainted(true);
         screen.getFileChooserPanel().loadDestBar.setStringPainted(true);
@@ -131,6 +141,12 @@ public class ChargementParallele extends Thread{
         }while (inputFile.hasNextLine());//chargement ligne
     }
 
+    /**
+     * verifies les données
+     * verifies si toute les route on bien une destination
+     * @throws VerificationExeption
+     * @throws InterruptedException
+     */
     private void verification() throws VerificationExeption, InterruptedException {
         screen.getFileChooserPanel().loadSiteBar.setValue(0);
         screen.getFileChooserPanel().loadDestBar.setValue(0);//reset des bars
@@ -158,6 +174,11 @@ public class ChargementParallele extends Thread{
         screen.getFileChooserPanel().loadDestBar.setValue(0);//reset des bars
     }
 
+    /**
+     * repositionne les site pour la carte
+     * les site étant placé aléatoirement il peuvent se chevocher donc on les repositionne
+     * @throws InterruptedException
+     */
     private void repositionnement() throws InterruptedException {
         screen.getFileChooserPanel().loadSiteBar.setIndeterminate(true);
         screen.getFileChooserPanel().loadDestBar.setIndeterminate(true);
@@ -165,7 +186,7 @@ public class ChargementParallele extends Thread{
 
 
         ArrayList<Site> sites = carte.getSites();
-        boolean movingPoint=false;
+        boolean movingPoint=false; //passage a true pour une verification constante du positionnement
         do{
             movingPoint=false;
             for(Site site:sites){
@@ -199,7 +220,11 @@ public class ChargementParallele extends Thread{
 
     }
 
-
+    /**
+     * coupe la ligne pour faciliter la transformation du fichier
+     * @param line
+     * @return retourne la liste des arguments de la ligne
+     */
     private ArrayList<String> lineSeq(String line){
         ArrayList<String> seqline = new ArrayList<>();
         seqline.add(line.substring(0,line.indexOf(":")));
@@ -211,7 +236,12 @@ public class ChargementParallele extends Thread{
         return seqline;
     }
 
-
+    /**
+     * netoyage d'une ligne
+     * suprime les espaces de la ligne
+     * @param line
+     * @return retourne la ligne propre
+     */
     private String lineClear(String line) {
         return line.replaceAll("\\s+","");
     }

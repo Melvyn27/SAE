@@ -6,6 +6,12 @@ import SAE.map.Site;
 
 import java.util.ArrayList;
 
+
+/**
+ * classe de pathFiniding
+ *
+ * ane pas utiliser car trop instable;
+ */
 public class PathFindding {
     Screen screen;
     int i = 0;

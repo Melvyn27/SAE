@@ -68,10 +68,22 @@ public class VoisinDe {
         return this;
     }
 
+    /**
+     * fait juste le lien entre le nom d'un site et son objet dans la carte
+     * @param name
+     * @param jump
+     * @return la liste des sites
+     * */
     private ArrayList<Site> voisinDe(String name,int jump){
-
         return voisinDe(carte.sites.get(name),jump);
     }
+
+    /**
+     * fait la liste des voisin directe d'un site puis effectue une recherche recursive si _jump_ est superrieur a _0_
+     * @param site
+     * @param jump
+     * @return  la liste des sites
+     */
     private ArrayList<Site> voisinDe(Site site,int jump) {
         ArrayList<Site> v = new ArrayList<>();
         if(site!=null){
@@ -86,6 +98,11 @@ public class VoisinDe {
         }
         return v;
     }
+
+    /**
+     * suprime la duplication des site
+     * @return se retourne soit meme pour pouvoir enchainer les methodes
+     */
     public VoisinDe delDupli(){
         ArrayList<Site> newSite = new ArrayList<>();
         for(Site s : sites)if(!newSite.contains(s))newSite.add(s);
@@ -93,7 +110,6 @@ public class VoisinDe {
     }
 
     /**
-     *
      * @return les resultats de la recherche
      */
     public ArrayList<Site> getSites() {

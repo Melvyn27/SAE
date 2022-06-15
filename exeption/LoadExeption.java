@@ -6,6 +6,10 @@ import SAE.graphics2.threadedMotors.ChargementParallele;
 import javax.swing.*;
 import java.awt.*;
 
+
+/**
+ * la classe LoadExeption affiche un message d'erreur lors du chargement
+ */
 public class LoadExeption extends Exception {
     JFrame frame;
     public LoadExeption(FileLoaderPanel target,String message) {

@@ -47,6 +47,12 @@ public class Test {
     }
    */
 
+    /**
+     * test l'utilisation des Thread de maniere répeté
+     * @param args
+     * @see Thread
+     * @see Runnable
+     */
     public static void main(String[] args) {
         ChargementParallele chargement = new ChargementParallele(null,null);
         chargement.start();
