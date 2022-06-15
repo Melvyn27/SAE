@@ -100,7 +100,7 @@ public class ListerLesSitePanel extends JPanel {
         ArrayList<Route> a = new ListerLesTrucs(screen).listerLesAutoroute();
         screen.getLog().addLine("Autoroutes:");
         for(Route r:a){
-            screen.getLog().addLine("       "+r.getSource()+" <-> "+r.getDestination());
+            screen.getLog().addLine("       "+r.getSource()+" <-"+r.getLongueur() +"-> "+r.getDestination());
         }
         screen.getLog().addLine(" ");
     }
@@ -108,15 +108,15 @@ public class ListerLesSitePanel extends JPanel {
         ArrayList<Route> a = new ListerLesTrucs(screen).listerLesNational();
         screen.getLog().addLine("Nationals:");
         for(Route r:a){
-            screen.getLog().addLine("       "+r.getSource()+" <-> "+r.getDestination());
+            screen.getLog().addLine("       "+r.getSource()+" <-"+r.getLongueur() +"-> "+r.getDestination());
         }
         screen.getLog().addLine(" ");
     }
     private void D(){
-        ArrayList<Route> a = new ListerLesTrucs(screen).listerLesNational();
+        ArrayList<Route> a = new ListerLesTrucs(screen).listerLesDepartementale();
         screen.getLog().addLine("Depatementals:");
         for(Route r:a){
-            screen.getLog().addLine("       "+r.getSource()+" <-> "+r.getDestination());
+            screen.getLog().addLine("       "+r.getSource()+" <-"+r.getLongueur() +"-> "+r.getDestination());
         }
         screen.getLog().addLine(" ");
     }
