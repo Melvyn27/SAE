@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LoadExeption extends Exception {
-    //fixme adapter les exeption a la nouvelle interface
     JFrame frame;
     public LoadExeption(FileLoaderPanel target,String message) {
         target.information.setForeground(new Color(255,0,0));

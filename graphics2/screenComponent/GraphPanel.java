@@ -37,8 +37,6 @@ public class GraphPanel extends JPanel implements MouseListener,MouseMotionListe
 
     int pointSize=10;
 
-    //todo créer les fonctions de dessin
-    //todo créer plusieur style d'affichage
     public GraphPanel(Screen screen){
         this.screen=screen;
         carte = screen.getCarte();

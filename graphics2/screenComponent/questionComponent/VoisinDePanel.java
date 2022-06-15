@@ -28,7 +28,7 @@ public class VoisinDePanel extends JPanel {
         siteComboBoxModel1.resetChoix();
         siteComboBoxModel1.addChoix(s);
     }
-    void init(){//fixme: bug d'affichage
+    void init(){
         JPanel global = new JPanel();
         global.setLayout(new BoxLayout(global,BoxLayout.Y_AXIS));
 
