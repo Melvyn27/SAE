@@ -1,5 +1,6 @@
 package SAE.test;
 
+import SAE.action.ListerLesTrucs;
 import SAE.action.VoisinDe;
 import SAE.map.Carte;
 import SAE.map.Site;
@@ -55,6 +56,34 @@ public class CarteTest{
 
         assertEquals(true,new VoisinDe(false,carte).start("Lyon",1).getSites().contains(grenoble));
         assertEquals(true,new VoisinDe(false,carte).start("Lyon",1).getSites().contains(clermon));
+
+    }
+    @Test
+    public void listerDesTrucTest(){
+        Carte carte = new Carte();
+        Site grenoble = new Site("Grenoble",'V');
+        Site lyon = new Site("Lyon",'R');
+        Site clermon = new Site("Clermon",'L');
+
+        grenoble.ajouterRoute('A',80,"Lyon");
+        lyon.ajouterRoute('A',80,"Grenoble");
+
+        clermon.ajouterRoute('D',100,"Lyon");
+        lyon.ajouterRoute('D',100,"Clermon");
+
+        clermon.ajouterRoute('N',150,"Grenoble");
+        grenoble.ajouterRoute('N',150,"Clermon");
+
+        carte.ajouterSite(grenoble);
+        carte.ajouterSite(lyon);
+        carte.ajouterSite(clermon);
+
+        assertEquals(grenoble,new ListerLesTrucs(carte).listerLesVilles().get(0));
+        assertEquals(lyon,new ListerLesTrucs(carte).listerLesRestaurants().get(0));
+        assertEquals(clermon,new ListerLesTrucs(carte).listerLesLoisires().get(0));
+
+
+
 
 
 
